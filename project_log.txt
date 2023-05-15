@@ -1,0 +1,9 @@
+To build a backend server:
+1. Open VSCode to an empty directory
+2. npm init -y => init package.json file
+3. npm install express => adds express to dependency
+4. touch server.js => create blank file
+
+Fire api:
+1. in terminal: node .
+2. paste url into web server
