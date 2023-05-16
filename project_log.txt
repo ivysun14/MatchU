@@ -1,9 +1,112 @@
-To build a backend server:
+05/15/2023
+==========
+To build a simple backend server:
 1. Open VSCode to an empty directory
 2. npm init -y => init package.json file
 3. npm install express => adds express to dependency
 4. touch server.js => create blank file
+5. change main in package.json from index.js to server.js
+
+Basic setups:
+const express = require('express'); // pull express packege
+const app = express(); // app variable that can be used to configure the server
+const PORT = 8080; // define a port
 
 Fire api:
 1. in terminal: node .
 2. paste url into web server
+
+Using the listen method of an app object to start a server and listen for incoming HTTP requests on a specified port.
+The listen method takes two arguments: the port number on which the server should listen for requests, and a callback
+function that will be called once the server starts listening.
+app.listen(
+    PORT,
+    () => console.log(`it's alive on http://localhost:${PORT}`)
+);
+
+Using GET to create a route to http://localhost:8080/profile and run the handler function when the route is requested.
+req here stands for incoming data, and res stands for data sent back to client.
+app.get('/profile', (req, res) => {
+    res.status(200).send('This is the profile page')
+});
+We used similar app.get commands to create another 3 routes to 3 pages: home(/), match_display, chat.
+app.get('/', (req, res) => {
+    res.status(200).send('This is the home (login) page')
+});
+
+app.get('/match_display', (req, res) => {
+    res.status(200).send('This is the match display page')
+});
+
+app.get('/chat', (req, res) => {
+    res.status(200).send('This is the chat page')
+});
+
+
+05/15/2023 Changes
+==================
+Use a newer node version: nvm use 14.20.1
+Install development dependencies:
+npm i --save-dev nodemon //refresh server with every change without manually restart
+npm i --save-dev dotenv //allow pulling of env variables from .env file
+In scripts in package.json file, replace test with "devStart": "nodemon server.js"
+Invoke server with npm run devStart => [nodemon] starting `node server.js`, so now using nodemon to start the server
+Create .env and .gitignore file, add .env and node_modules to .gitignore file
+
+Integrate MongoDB with backend server:
+Create a MongoDB Atlas account and registor for a free database following: https://www.mongodb.com/languages/javascript/mongodb-and-npm-tutorial
+Install the dependencies:
+npm install mongodb
+npm i mongoose
+The code for connection looks like:
+//...
+const mongoose = require('mongoose')
+//...
+mongoose.connect('mongodb+srv://ivysun14:cthy999n58h101s@matchu.45hzd8g.mongodb.net/?retryWrites=true&w=majority',
+    { useNewUrlParser: true },
+    () => console.log('Connected to DB')
+);
+//...
+Error connecting to database:  UnhandledPromiseRejectionWarning: MongooseError: Mongoose.prototype.connect() no longer accepts a callback
+Solved the error by uninstalling mongoose v7.1.1 and downgrade to mongoose v6.10.0.
+
+We removed the hard-coded URL into the .env file so the password will not be public.
+In .env file we wrote: DB_CONNECTION=mongodb+srv://ivysun14:cthy999n58h101s@matchu.45hzd8g.mongodb.net/?retryWrites=true&w=majority
+In server.js we changed the code to:
+//...
+const mongoose = require('mongoose'); // request mongoose package
+require('dotenv/config');
+//...
+// connect to DB
+mongoose.connect(
+    process.env.DB_CONNECTION,
+    { useNewUrlParser: true },
+    () => console.log('Connected to DB')
+);
+//...
+
+Create entries into the database:
+1. create a new folder named models, this folder will hold schema for different database entries
+2. Create a file named Profile.js, this is the file that specifies what a profile should contain
+The Profile.js file looks like:
+const mongoose = require('mongoose');
+
+const ProfileSchema = mongoose.Schema({
+    name: {
+        type: String,
+        required: true
+    },
+    gender: {
+        type: String,
+        required: true
+    },
+    major: {
+        type: String,
+        required: false
+    }
+});
+
+module.exports = mongoose.model('Profiles', ProfileSchema);
+
+
+Tutorial: https://www.youtube.com/watch?v=vjf774RKrLc
