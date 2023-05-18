@@ -1,11 +1,12 @@
 import { useState } from "react";
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 
 const Register = () => {
 
-    const [name, namechange] = useState("");
+    const [id, idchange] = useState("");
     const [password, passwordchange] = useState("");
     const [age, agechange] = useState("");
     const [campus, campuschange] = useState("");
@@ -18,16 +19,42 @@ const Register = () => {
 
     const IsValid = () => {
         let isproceed = true;
-        let errormessage = "Please enter the value in ";
-        if (name === "" || name === null) {
+        let errormessage = "Please enter the value in";
+        if (id === "" || id === null) {
             isproceed = false;
-            errormessage += 'Full Name (Username)';
+            errormessage += ' Username';
         }
-        if (password === "" || password === null) {
+        else if (password === "" || password === null) {
             isproceed = false;
-            errormessage += 'Password';
+            errormessage += ' Password';
         }
-        if (!isproceed){
+        else if (age === "" || age === null) {
+            isproceed = false;
+            errormessage += ' Age';
+        }
+        else if (!( age >= 18 && age <= 100)){
+            isproceed = false;
+            toast.warning('Please enter a valid age');
+            return isproceed;
+        }
+        else if (campus === "" || campus === null) {
+            isproceed = false;
+            errormessage += ' Campus';
+        }
+        else if (gender === "" || gender === null) {
+            isproceed = false;
+            errormessage += ' Biological Gender';
+        }
+        else if (major === "" || major === null) {
+            isproceed = false;
+            errormessage += ' Major';
+        }
+        else if (pregender === "" || pregender === null) {
+            isproceed = false;
+            errormessage += ' Preferred Biological Gender';
+        }
+        
+        if (!isproceed) {
             toast.warning(errormessage);
         }
         return isproceed;
@@ -35,9 +62,10 @@ const Register = () => {
 
     const handlesubmit = (e) => {
         e.preventDefault();
-        let regobj = { name, password, age, campus, gender, major, aboutyou, pregender };
+        let regobj = { id, password, age, campus, gender, major, aboutyou, pregender };
         //console.log(regobj);
-        if (IsValid) {
+        //if (!IsValid){console.log(IsValid);}
+        if (IsValid()) {
             fetch("http://localhost:8000/users", {
                 method: "POST",
                 headers: { 'Content-Type': 'application/json' },
@@ -63,8 +91,8 @@ const Register = () => {
                             <div className="row">
                                 <div className="col-lg-6"> {/* this is how long the text box is */}
                                     <div className="form-group">
-                                        <label>Full Name (Username)<span className="errormsg">*</span></label>
-                                        <input value={name} onChange={e => namechange(e.target.value)}
+                                        <label>Username<span className="errormsg">*</span></label>
+                                        <input value={id} onChange={e => idchange(e.target.value)}
                                             className="form-control"></input> {/* text box */}
                                     </div>
                                 </div>
@@ -189,8 +217,8 @@ const Register = () => {
 
                         </div>
                         <div className="card-footer">
-                            <button type="submit" className="btn btn-primary">Register</button>
-                            <a className="btn btn-danger">Back to Home Page</a>
+                            <button type="submit" className="btn btn-primary">Register</button>   |
+                            <Link className="btn btn-success" to={'/'}>Back to Home Page</Link>
 
                         </div>
 
