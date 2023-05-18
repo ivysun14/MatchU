@@ -110,3 +110,43 @@ module.exports = mongoose.model('Profiles', ProfileSchema);
 
 
 Tutorial: https://www.youtube.com/watch?v=vjf774RKrLc
+
+
+05/17/2023
+==========
+Server Setup Continued:
+
+Used
+	$ npm i -D nodemon
+To install nodemon locally.
+
+Now you can use
+	$ npm run start:dev
+To use nodemon for development, which enables you to visualize the changes you made by simply refresh the browser.
+
+Added
+	app.use(express.json());
+	app.use(express.urlencoded());
+And you can now use middle-ware and post via Postman.
+
+Added
+	app.use((req, res, next) => {
+    		console.log(`${req.method}:${req.url}`);
+    		next();
+	});
+Which will generate message for each routes.
+
+Added MatchU/src folders, added MatchU/src/routers folder, added MatchU/src/routers/persons.js file, which contains a router for the persons list.
+
+Added 
+	app.use('/api/v1/persons', personsRoute);
+Now you can get access to localhost:8080/api/v1/persons to get the personList.
+And you can also get access to localhost:8080/api/v1/persons/someName to get the single object of a person with "name"===someName.
+
+Added MatchU/src/routers/campuses.js file, which contains a router for the campuses list.
+
+Added a query parameter for campuses.js, and now you can access addresses like
+    http://localhost:8080/api/v1/campuses/?miles=10
+To get the list of campuses within 10 miles.
+
+The above two files are just for example purposes, and they should be modified to match the real requirments.
