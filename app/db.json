@@ -1,0 +1,15 @@
+{
+  "users": [
+    {
+      "name": "nnn",
+      "password": "nnn",
+      "age": "n",
+      "campus": "UCLA",
+      "gender": "Female",
+      "major": "Area, Ethnic, Cultural, Gender, and Group Studies",
+      "aboutyou": "hhhhhhh",
+      "pregender": "Male",
+      "id": 1
+    }
+  ]
+}
