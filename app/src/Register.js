@@ -32,7 +32,7 @@ const Register = () => {
             isproceed = false;
             errormessage += ' Age';
         }
-        else if (!( age >= 18 && age <= 100)){
+        else if (!(age >= 18 && age <= 100)) {
             isproceed = false;
             toast.warning('Please enter a valid age');
             return isproceed;
@@ -53,7 +53,7 @@ const Register = () => {
             isproceed = false;
             errormessage += ' Preferred Biological Gender';
         }
-        
+
         if (!isproceed) {
             toast.warning(errormessage);
         }
@@ -89,6 +89,7 @@ const Register = () => {
                         </div>
                         <div className="card-body">
                             <div className="row">
+                                
                                 <div className="col-lg-6"> {/* this is how long the text box is */}
                                     <div className="form-group">
                                         <label>Username<span className="errormsg">*</span></label>
@@ -195,14 +196,14 @@ const Register = () => {
                                         </select>
                                     </div>
                                 </div>
-                                <div className="col-lg-12">
+                                <div className="col-lg-12 mb-3"> {/* indicate a margin-bottom of a size 3 */}
                                     <div className="form-group">
                                         <label>About Yourself</label>
                                         <textarea value={aboutyou} onChange={e => aboutyouchange(e.target.value)} className="form-control"></textarea>
 
                                     </div>
                                 </div>
-                                <div className="col-lg-6">
+                                <div className="col-lg-6 mb-3">
                                     <div className="form-group">
                                         <label>Preferred Biological Gender</label>
                                         <br></br>
@@ -211,6 +212,12 @@ const Register = () => {
                                         <input type="radio" checked={pregender === 'Female'} onChange={e => pregenderchange(e.target.value)} name="gender" value="Female" className="app-check"></input>
                                         <label>Female</label>
 
+                                    </div>
+                                </div>
+                                <div className="mb-3">
+                                    <div className="form-group">
+                                        <label className="form-label">Profile Picture<span className="errormsg">*</span></label>
+                                        <input type="file" value={age} onChange={e => agechange(e.target.value)} className="form-control"></input>
                                     </div>
                                 </div>
                             </div>

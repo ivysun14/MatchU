@@ -9,6 +9,16 @@
       "major": "Engineering",
       "aboutyou": "hhhhh",
       "pregender": "Male"
+    },
+    {
+      "id": "Meg",
+      "password": "123",
+      "age": "19",
+      "campus": "UCLA",
+      "gender": "Female",
+      "major": "Agriculture, Agriculture Operations, and Related Sciences",
+      "aboutyou": "hahaha",
+      "pregender": "Male"
     }
   ]
 }
