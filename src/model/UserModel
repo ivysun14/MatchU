@@ -1,0 +1,68 @@
+const mongoose = require('mongoose');
+const validator = require('validator');
+const bcrypt = require('bcryptjs');
+const session = require('express-session');
+
+const userSchema = new mongoose.Schema(
+    {
+      name: {
+        type: String,
+        required: [true, 'A user must have a name'],
+        unique: true,
+        trim: true,
+        maxlength: [15, 'A post name must have less or equal then 15 characters']
+      },
+      role: {
+        type: String,
+        default: 'user'
+      },
+
+      //Create a filed named photo in the schema whose data type is String.
+      photo: String,
+
+      campus:{
+        type:String,
+        //Please create a college list for user to type and select from it
+        required: [true, 'A user must have a college'],
+      },
+
+      Major: {
+        type: String,
+        required: [true, 'A user must have a major'],
+      },
+
+      gender: {
+        type: String,
+        required: [true, 'A user must have a gender'],
+      },
+
+      Preferred_Biological_Gender: {
+        type: String,
+        required: [true, 'A user must have a preffered biological gender'],
+      },
+
+      age: {
+        type: Number,
+        min: 18,
+        max: 30,
+        required: [true, 'A user must have a gender'],
+      },
+
+      password: {
+        type: String,
+        required: [true, 'Please provide a password'],
+        minlength: 8,
+        select: false
+      },
+      passwordConfirm: {
+        type: String,
+        required: [true, 'Please confirm your password'],
+        validate: {
+          validator: function(el) {
+            return el === this.password;
+          },
+          message: 'Passwords are not the same!'
+        }
+      },
+      passwordChangedAt: Date
+    });
