@@ -6,7 +6,9 @@ import Login from './Login';
 import Register from './Register';
 import {ToastContainer} from 'react-toastify';
 
-
+import './App.css'; // Import the CSS file
+import React from 'react';
+import ReactDOM from 'react-dom';
 
 function App() {
   return (
@@ -22,5 +24,15 @@ function App() {
     </div>
   );
 }
+
+/*ReactDOM.render(
+  <React.StrictMode>
+    <div style={{ backgroundColor: 'lightblue' }}>
+      //{Your app components }
+    </div>
+  </React.StrictMode>,
+  document.getElementById('root')
+);*/
+
 
 export default App;
