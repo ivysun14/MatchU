@@ -217,7 +217,7 @@ const Register = () => {
                                 <div className="mb-3">
                                     <div className="form-group">
                                         <label className="form-label">Profile Picture<span className="errormsg">*</span></label>
-                                        <input type="file" value={age} onChange={e => agechange(e.target.value)} className="form-control"></input>
+                                        <input type="file" className="form-control"></input>
                                     </div>
                                 </div>
                             </div>

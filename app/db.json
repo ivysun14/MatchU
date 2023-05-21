@@ -19,6 +19,16 @@
       "major": "Agriculture, Agriculture Operations, and Related Sciences",
       "aboutyou": "hahaha",
       "pregender": "Male"
+    },
+    {
+      "id": "Yelisia",
+      "password": "12345678",
+      "age": "20",
+      "campus": "UCLA",
+      "gender": "Female",
+      "major": "Biological and Biomedical Sciences",
+      "aboutyou": "I am deeply honored to be the third testing personnel of this fantastic future start project. I aspire to see more details coming up for this project and the best of luck for the group =)",
+      "pregender": "Female"
     }
   ]
 }
