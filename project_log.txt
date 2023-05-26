@@ -150,3 +150,339 @@ Added a query parameter for campuses.js, and now you can access addresses like
 To get the list of campuses within 10 miles.
 
 The above two files are just for example purposes, and they should be modified to match the real requirments.
+
+
+05/23/2023 - 05/25/2023
+=======================
+Deleted MatchU/models folder since the same information is already represented in MatchU/src/model.
+
+Renamed ./src/routes/persons.js file to users.js to match the description in ./src/model/UserModel.js, and changed variables/routes in server.js accordinglly.
+
+Modified the UserModel.js file, specifically modified the mongoose schema for user data so that it follows the
+frontend react definition of the page "User Registration." The new UserModel.js file looks like:
+
+    const mongoose = require('mongoose');
+    const userSchema = new mongoose.Schema(
+    {
+        username: {
+            type: String,
+            required: [true, 'A user must have a name'],
+            unique: true,
+            maxlength: [15, 'A posted name cannot exceed 15 characters']
+        },
+
+        password: {
+            type: String,
+            required: [true, 'Please provide a password'],
+            minlength: [8, 'A password needs to have at least a length of 8'],
+            select: false
+        },
+
+        age: {
+            type: Number,
+            min: 18,
+            max: 30,
+            required: [true, 'A user must input an age']
+        },
+
+        uc_campus: {
+            type: String,
+            required: [true, 'A user must have a college']
+        },
+
+        biological_gender: {
+            type: String,
+            required: [true, 'A user must have a gender']
+        },
+
+        major_area: {
+            type: String,
+            required: [true, 'A user must have a major']
+        },
+
+        about_yourself: {
+            type: String,
+            required: false,
+            maxlength: [300, 'A description cannot exceed 300 characters']
+        },
+
+        preferred_biological_gender: {
+            type: String,
+            required: [true, 'A user must provide a preferrd biological gender']
+        },
+
+        profile_picture: {
+            data: Buffer,
+            contentType: String
+        }
+    });
+    module.exports = mongoose.model('Users', userSchema);
+
+Reformatted the way the server would control different routes and respond to HTTP requests. Now within MatchU/src/, there are three directories. They are:
+    1. controllers
+    2. models
+    3. routes
+Specifically for the "user registration" pages, we define the following files to handle and store user data:
+    MatchU/src/controllers/userController.js
+    MatchU/src/models/userModel.js
+    MatchU/src/routes/users.js
+
+In users.js (router file), we directed router behavior to be defined by the user controller:
+
+    const express = require('express');
+    const router = express.Router();
+    const userContoller = require('../controllers/userController');
+
+    router.get('/', userContoller.listUsers);
+    router.post('/', userContoller.insertSingleUser);
+    router.patch('/:id', userContoller.updateSingleUser);
+
+    module.exports = router;
+
+The behavior of get, post, patch are defined in the functions listUsers(), insertSingleUser(), updateSingleUser() in the userController file respectively.
+
+In userController.js, we added definitions for HTTP behavior GET, POST, PATCH:
+
+    const User = require('../models/userModel');
+
+    // GET
+    // get all users
+    exports.listUsers = async (req, res) => {
+
+        try {
+            const users = await User.find({});
+            res.json(users);
+        } catch (error) {
+            res.status(400).json({ message: error });
+    }
+
+    }
+
+    // POST
+    // insert a user into database
+    exports.insertSingleUser = async (req, res) => {
+
+        const newUser = new User({
+            username: req.body.username,
+            password: req.body.password,
+            age: req.body.age,
+            uc_campus: req.body.uc_campus,
+            biological_gender: req.body.biological_gender,
+            major_area: req.body.major_area,
+            about_yourself: req.body.about_yourself,
+            preferred_biological_gender: req.body.preferred_biological_gender,
+            profile_picture: req.body.profile_picture
+        });
+
+        try {
+            await newUser.save();
+            res.json(newUser);
+        } catch (error) {
+            res.status(400).json({ message: error });
+        }
+
+    }
+
+    // PATCH
+    // update a user in the database
+    exports.updateSingleUser = async (req, res) => {
+
+        let paramID = req.params.id;
+        let username = req.body.username;
+
+        try {
+            const updateUser = await User.updateOne({ _id: paramID }, { username: username });
+            res.json(updateUser);
+        } catch (error) {
+            res.status(400).json({ message: error });
+        }
+
+    }
+
+In server,js, modified the router for user registration page. Now import the router with:
+    const usersRoute = require('./src/routes/users');
+and set up the middleware:
+    app.use('/registration', usersRoute);
+
+Now we have the user data schema linked to the mongoDB database, we added into the database some dummy data, which are the commented out code
+in the userContoller.js file. (These data has already been eliminated after testing.)
+
+We would now like to connect the frontend React registration page with the backend server, specifically we wish to achieve:
+1. Once the user inputted registration data, it should be stored into the backend mongoDB database.
+2. The inputted user registration data should follow the rules defined in userModel.js.
+
+Installed additional dependency:
+    npm install cors
+CORS (Cross-Origin Resource Sharing) is a browser security feature that restricts cross-origin HTTP requests with other servers and specifies 
+which domains access your resources.
+
+Added in server.js:
+    //...
+    const cors = require('cors');
+    //...
+    app.use(cors());
+    //...
+We now allow cross-origin requests.
+
+
+************** SUGGESTIONS TO FRONT END **************
+Hint messages on registation page: input restrictions
+    EX. password must be of at least length 8.
+******************************************************
+
+Here we encountered an error upon tesing:
++++++
+ERROR: Data entered into frontend were not communicating to the backend database.
++++++
++++++
+DEBUG: Inside userModel.js, data schema parameter names DID NOT match with definitions in Register.js. Backend definitions and frontend definitions do not match,
+thus causing the error.
++++++
+
+Therefore, we modified the server-end userModel.js file, such that the parameter names matches with:
+    { id, password, age, campus, gender, major, aboutyou, pregender };
+which is a definition in the front end. Also changed the POST and PATCH methods in userContoller.js, 
+such that the parameter names match with new names corrected in userModel.js.
+
+Finally to connect the frontend and the backend, in MatchU/app/src/Register.js changed the "fetch" URL:
+
+    //...
+    const handlesubmit = (e) => {
+        e.preventDefault();
+        let regobj = { id, password, age, campus, gender, major, aboutyou, pregender };
+        //console.log(regobj);
+        //if (!IsValid){console.log(IsValid);}
+        if (IsValid()) {
+            fetch("http://localhost:8080/registration", {
+                method: "POST",
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(regobj) //converts a JavaScript object or value into a JSON string representation
+            }).then((res) => {
+                toast.success('Registered successfully.');
+                navigate('/login');
+            }).catch((err) => {
+                toast.error('Failed :' + err.message);
+            });
+        }
+    }
+    //...
+
+The only feature that still needs to be implemented for user registration is image storage and display. (How to display? Where to store?)
+--> https://www.geeksforgeeks.org/upload-and-retrieve-image-on-mongodb-using-mongoose/
+
+Next, implemented features for the login page. Again we used the files:
+1. userModel.js
+2. userController.js
+3. users.js
+
+We added a GET implementation in users.js:
+    router.get('/:username', userContoller.listSpecificUsers);
+to accompany the way the front end set for querying the database.
+
+Then added corresponding implementation .listSpecificUsers() in the controller file.
+
+++++++
+ERROR: Password is always invalid even when there is clearly a match between the username and inputted password.
+++++++
+++++++
+DEBUG: The parameter password is set to "select": false in the schema, which means that the field will not be included
+++++++ by default when querying documents from the database.
+
+Originally in userController.js, we wrote the implementation:
+
+    exports.listSpecificUsers = async (req, res) => {
+
+        let username = req.params;
+
+        try {
+            const theUser = await User.findOne({ username });
+            res.json(theUser);
+        } catch (error) {
+            res.status(400).json({ message: error });
+        }
+
+    }
+
+Now we explicitly wrote in the function using the select() method to tell the server that password should be included when querying items from the database:
+
+
+    exports.listSpecificUsers = async (req, res) => {
+
+        let username = req.params;
+
+        try {
+            const theUser = await User.findOne({ username }).select('+password');
+            res.json(theUser);
+        } catch (error) {
+            res.status(400).json({ message: error });
+        }
+
+    }
+
+Finally in app/src/Login.js changed the URL:
+
+    const ProceedLogin = (e) => {
+        e.preventDefault();
+        if (validate()) {
+            fetch('http://localhost:8080/registration/' + username).then((res) => {
+                return res.json();
+            }).then()
+
+            //...
+        }
+    }
+
+Now when inputting username "Kate" and password "testuser", show successful login and jump to match page.
+
+Add dummy date through the React interface. Set up one test case for each campus.
+
+++++++
+ERROR: Only the first user can be added to the database. The second and later registrations would not be added to the mongo database.
+++++++
+++++++
+DEBUG: MongoDB Atlas enforced unique indexes, since we onced changed parameter "username" to "id", we now have to manually delete the username index
+++++++ in MongoDB databse. Otherwise it will always be null and thus impeding the UNIQUE requirement.
+
+Postman error message upon POST request:
+
+{
+    "message": {
+        "index": 0,
+        "code": 11000,
+        "keyPattern": {
+            "username": 1
+        },
+        "keyValue": {
+            "username": null
+        }
+    }
+}
+
+Deleted username index in mongodb atlas.
+Successfully added 9 dummy cases, one for each UC Campus.
+
+
+Test to login when there are multiple data in the database.
+
+++++++
+ERROR: Always find the first inserted data which is "Kate" even when query with other usernames.
+++++++
+++++++
+DEBUG: Username is nested inside id paramete. And also use {username} to get just the username instead of a key-value pair.
+++++++ 
+
+Modified function:
+
+    exports.listSpecificUsers = async (req, res) => {
+
+        try {
+            let { username } = req.params;
+            const theUser = await User.findOne({ id: username }).select('+password');
+            res.json(theUser);
+        } catch (error) {
+            res.status(400).json({ message: error });
+        }
+
+    }
+
+Now we have a fully functional login and registration page with only the picture feature missing.

@@ -8,46 +8,46 @@ const Login = () => {
     const [username, usernameupdate] = useState('');
     const [password, passwordupdate] = useState('');
 
-    const usenavigate=useNavigate();
+    const usenavigate = useNavigate();
 
-    useEffect(()=>{
+    useEffect(() => {
         sessionStorage.clear(); // so the person have to log back in when logged out 
-    },[])
+    }, [])
 
     const ProceedLogin = (e) => {
         e.preventDefault();
-        if(validate()){
+        if (validate()) {
             //console.log('proceed');
-            fetch('http://localhost:8000/users/'+username).then((res)=>{
+            fetch('http://localhost:8080/registration/' + username).then((res) => {
                 return res.json();
-            }).then((resp)=>{
+            }).then((resp) => {
                 console.log(resp);
-                if(Object.keys(resp).length===0){
+                if (Object.keys(resp).length === 0) {
                     toast.error('Please Enter Valid Username');
-                }else{
-                    if(resp.password===password){
+                } else {
+                    if (resp.password === password) {
                         toast.success('Success');
-                        sessionStorage.setItem('username',username);
+                        sessionStorage.setItem('username', username);
                         usenavigate('/');
-                    }else{
+                    } else {
                         toast.error('Please Enter Valid Credentials');
                     }
                 }
-            }).catch((err)=>{
-                toast.error("Login Failed Due to :"+err.message)
+            }).catch((err) => {
+                toast.error("Login Failed Due to :" + err.message)
             });
 
         }
     }
 
-    const validate=()=>{
-        let result=true;
-        if (username === "" || username === null){
-            result=false;
+    const validate = () => {
+        let result = true;
+        if (username === "" || username === null) {
+            result = false;
             toast.warning('Please Enter Username');
         }
-        else if (password === "" || password === null){
-            result=false;
+        else if (password === "" || password === null) {
+            result = false;
             toast.warning('Please Enter Password');
         }
         return result;
@@ -55,7 +55,7 @@ const Login = () => {
 
     return (
         <div className="row">
-            <div className="offset-lg-3 col-lg-6" style={{marginTop:'100px'}}>
+            <div className="offset-lg-3 col-lg-6" style={{ marginTop: '100px' }}>
                 <form className="container" onSubmit={ProceedLogin}>
                     <div className="card">
                         <div className="card-header">
@@ -64,17 +64,17 @@ const Login = () => {
                         <div className="card-body">
                             <div className="form-group">
                                 <label>User Name <span className="errmsg">*</span></label>
-                                <input value={username} onChange={e=>usernameupdate(e.target.value)} className="form-control"></input>
+                                <input value={username} onChange={e => usernameupdate(e.target.value)} className="form-control"></input>
                             </div>
                             <div className="form-group">
                                 <label>Password <span className="errmsg">*</span></label>
-                                <input type="password" value={password} onChange={e=>passwordupdate(e.target.value)} className="form-control"></input>
+                                <input type="password" value={password} onChange={e => passwordupdate(e.target.value)} className="form-control"></input>
                             </div>
                         </div>
                         <div className="card-footer">
                             <button type="submit" className="btn btn-primary">Login</button>  |
                             <Link className="btn btn-success" to={'/register'}>New User</Link>
- 
+
                         </div>
                     </div>
                 </form>

@@ -1,7 +1,8 @@
-const { Router } = require('express');
+const express = require('express');
+const router = express.Router();
+const userContoller = require('../controllers/userController');
 
-const router = Router();
-
+/*
 // The following personList should really be a database, but since it is not set up, I use it instead.
 const personList = [
     {
@@ -37,5 +38,11 @@ router.post('/', (req, res) => {
     personList.push(req.body);
     res.send(201);
 });
+*/
+
+router.get('/', userContoller.listUsers);
+router.get('/:username', userContoller.listSpecificUsers);
+router.post('/', userContoller.insertSingleUser);
+router.patch('/:id', userContoller.updateSingleUser);
 
 module.exports = router;

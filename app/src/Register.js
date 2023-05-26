@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useEffect } from "react";
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
@@ -66,7 +67,7 @@ const Register = () => {
         //console.log(regobj);
         //if (!IsValid){console.log(IsValid);}
         if (IsValid()) {
-            fetch("http://localhost:8000/users", {
+            fetch("http://localhost:8080/registration", {
                 method: "POST",
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(regobj) //converts a JavaScript object or value into a JSON string representation
@@ -89,7 +90,7 @@ const Register = () => {
                         </div>
                         <div className="card-body">
                             <div className="row">
-                                
+
                                 <div className="col-lg-6"> {/* this is how long the text box is */}
                                     <div className="form-group">
                                         <label>Username<span className="errormsg">*</span></label>
