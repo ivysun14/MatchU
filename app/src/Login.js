@@ -22,7 +22,7 @@ const Login = () => {
                 return res.json();
             }).then((resp) => {
                 console.log(resp);
-                if (Object.keys(resp).length === 0) {
+                if (resp === null) {
                     toast.error('Please Enter Valid Username');
                 } else {
                     if (resp.password === password) {
