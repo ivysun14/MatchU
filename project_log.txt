@@ -486,3 +486,152 @@ Modified function:
     }
 
 Now we have a fully functional login and registration page with only the picture feature missing.
+
+
+05/28/2023
+=======================
+Display Page and Filter
+
+Created a file "Display_test.json" under "app/src/" directory, which functions as the test database.
+Created a file "Display.css" under "app/src/" directory, which regulates the styles of elements being displayed.
+
+The slogan at very top is constructed.
+
+The main page is now splitted into 2 parts: left-container and right-container.
+left-container is used for selecting filters, and the right containers is used for showing result and advanced searching by keywords.
+
+Now completed the css file for styling each chunk of user's data in the right-container. 
+The chunk is separated into smaller parts:
+.userContainer: defines the whole chunk
+.userImage: defines the user's profile image
+.userInfo: defines the user's information. e.g., name, age, major, etc.
+.innerUserContainer: wraps userImage and userInfo, so that they can be listed in parallel.
+.aboutMeContainer: defines the user's "aboutyou", and makes it to be listed under innerUserContainer for aesthetic.
+.profileUrl: defines and lists the user's personal profile's url. (this should be changed to something else I suppose?)
+
+Then used
+    import testData from './Display_testDB.json';
+to import the test database and store it as "testData", and
+    const testUser = testData[0];
+to simulate the matching display for a user.
+
+Used
+    <ul>
+        {testData.map((user,index) => (
+            <li>
+                <div class="userContainer">
+                    ...
+                </div>
+            </li>
+        ))}
+    </ul>
+To dynamically iterate and list every user in testData.
+
+Set 4 selection fields for filters:
+Age Range (ageRange): within how many years the target partner is older/younger than the user being matched.
+UC Campus (campus): which campus the target parter is at.
+Major Area (major): which major the target parter is in.
+Preferred Biology Sex (pregender): which biological gender is the target partner of.
+
+Completed html part so that the selection field and options can be shown correctly.
+
+Now used 
+    import { useState } from "react";
+and
+    const [ageRange, ageRangechange] = useState("");
+    const [campus, campuschange] = useState("");
+    const [major, majorchange] = useState("");
+    const [pregender, pregenderchange] = useState("");
+to store the changes of filter into each accroding variable.
+
+Then with syntax similar to
+    <select value={campus} onChange={e => campuschange(e.target.value)} className="form-control">
+and a simple handleSubmit() function
+    const handleSubmit = (e) => {
+    e.preventDefault();
+    ...
+    }
+We can successfully update and store the filter status each time we select an option.
+
+Now, declared a new array filteredUsers to contain the filtered and eliminated testData.
+const filteredUsers = testData.filter(user =>
+    (((parseInt(user.age) >= parseInt(testUser.age) - parseInt(ageRange)) &&
+    (parseInt(user.age) <= parseInt(testUser.age) + parseInt(ageRange))) ||
+    ageRange === "")
+    &&
+    (user.campus === campus ||
+    campus === "")
+    &&
+    (user.major === major ||
+    major === "")
+    &&
+    ((user.gender === pregender) ||
+    pregender === "")
+  );
+
+Besides, the 
+    <ul>
+        {testData.map((user,index) => ( ... ))}
+is changed to 
+    <ul>
+        {filteredUsers.map((user,index) => ( ... ))}
+So the right-container would only show the filtered users.
+
+At this moment, the filters can correctly work to find specific target users matching requirements.
+
+Now a new feature is added: advanced search by keywords.
+
+At the top of the right-container, a type-based searching window is added by using
+    <div>
+            <label for="searchbox" style={{fontWeight: 'bold', marginRight: '4pt'}}>Search</label>
+            <input class='input mb-3' type="search" id="searchbox" placeholder="Enter keywords..."></input>
+    </div>
+
+Now imported
+    import { useEffect } from "react";
+and
+    useEffect(() => {live_Search();}, []);
+to ensure that the keyword searching process is executed after the database is loaded by passing the empty [],
+or a "TypeError: 'null' is not an object" would occur.
+
+Then implemented a function liveSearch() to get the keyword and check if the userContainer contains the specific keyword(s):
+    let cards = document.querySelectorAll('.userContainer')
+    function liveSearch() {
+        let search_query = document.getElementById("searchbox").value;
+        for (var i = 0; i < cards.length; i++) {
+            if(cards[i].textContent.toLowerCase()
+                    .includes(search_query.toLowerCase())) {
+                cards[i].classList.remove("is-hidden");
+            } else {
+                cards[i].classList.add("is-hidden");
+            }
+        }
+    }
+Also, the ".is-hidden" is defined in Display.css to hide the exclueded users.
+
+Furthermore, to make the type-searching more natural, a delay in display is implemented:
+    let typingTimer;               
+    let typeInterval = 500;  
+    let searchInput = document.getElementById('searchbox');
+
+    searchInput.addEventListener('keyup', () => {
+        clearTimeout(typingTimer);
+        typingTimer = setTimeout(liveSearch, typeInterval);
+    });
+Thus, the type-based further search is completed.
+
+The purpose of it can be shown by the following example:
+say if you are a big fan of tennis, and you want to match with some one who also loves tennis,
+whom may be quite likely to include this hobby in his/her "About Me". Then if you type "tennis"
+in the searching area, you can further filter and quickly find your target partner. The reason
+I didn't only use ".aboutMeContainer" to filter is that someone may also want to search by name.
+For instance, if you are an Eric Clapton fanatic, and thus you really want to make friends with
+someone called "Layla", then you can type and search for the name "Layla", which is actually 
+inside ".innerUserContainer".
+
+Things incomplete so far:
+    1. Replace the test database with the real one.
+    2. Replace the test user with the real one, whose name can be get from "Login" and use a
+        query to direct to the specific matching page for him/her.
+    3. Image.
+    4. Redirecting to the next page after finding some one.
