@@ -1,0 +1,82 @@
+[
+    {
+    "id": "Angel",
+    "password": "hahaha",
+    "age": "19",
+    "campus": "UCLA",
+    "gender": "Female",
+    "major": "Engineering",
+    "aboutyou": "hhhhh",
+    "pregender": "Male"
+    },
+    {
+    "id": "Meg",
+    "password": "123",
+    "age": "19",
+    "campus": "UCLA",
+    "gender": "Female",
+    "major": "Agriculture, Agriculture Operations, and Related Sciences",
+    "aboutyou": "hahaha",
+    "pregender": "Male"
+    },
+    {
+    "id": "Yelisia",
+    "password": "12345678",
+    "age": "20",
+    "campus": "UCLA",
+    "gender": "Female",
+    "major": "Biological and Biomedical Sciences",
+    "aboutyou": "I am deeply honored to be the third testing personnel of this fantastic future start project. I aspire to see more details coming up for this project and the best of luck for the group =)",
+    "pregender": "Female"
+    },
+    {
+    "id": "Ken",
+    "password": "qwertyuiop",
+    "age": "21",
+    "campus": "UCLA",
+    "gender": "Male",
+    "major": "Mathematics and Statistics",
+    "aboutyou": "Who am I? Who am I? Who am I? Who am I? Who am I? Who am I? Who am I? Who am I? Who am I?",
+    "pregender": "Female"
+    },
+    {
+    "id": "Lennon",
+    "password": "qwertyuiop",
+    "age": "17",
+    "campus": "UC Berkeley",
+    "gender": "Male",
+    "major": "History",
+    "aboutyou": "Who are you? Who are you? Who are you? Who are you? Who are you? Who are you? Who are you?",
+    "pregender": "Female"
+    },
+    {
+    "id": "McCartney",
+    "password": "qwertyuiop",
+    "age": "24",
+    "campus": "UC Santa Barbara",
+    "gender": "Male",
+    "major": "Library Science",
+    "aboutyou": "Who is he? Who is he? Who is he? Who is he? Who is he? Who is he? Who is he? Who is he?",
+    "pregender": "Female"
+    },
+    {
+    "id": "Starr",
+    "password": "qwertyuiop",
+    "age": "27",
+    "campus": "UC San Diego",
+    "gender": "Male",
+    "major": "Mathematics and Statistics",
+    "aboutyou": "Who is she? Who is she? Who is she? Who is she? Who is she? Who is she? Who is she? Who is she?",
+    "pregender": "Female"
+    },
+    {
+    "id": "Harrison",
+    "password": "qwertyuiop",
+    "age": "25",
+    "campus": "UC Irvine",
+    "gender": "Male",
+    "major": "Mathematics and Statistics",
+    "aboutyou": "Who are they? Who are they? Who are they? Who are they? Who are they? Who are they? Who are they?",
+    "pregender": "Female"
+    }
+]
