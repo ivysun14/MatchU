@@ -5,6 +5,7 @@ import Home from './Home';
 import Login from './Login';
 import Register from './Register';
 import Display from './Display'
+import Recommendation from './Recommendation'
 import {ToastContainer} from 'react-toastify';
 
 import './App.css'; // Import the CSS file
@@ -21,6 +22,7 @@ function App() {
         <Route path='/login' element={<Login/>}></Route>
         <Route path='/register' element={<Register/>}></Route>
         <Route path='/display' element={<Display/>}></Route>
+        <Route path="/recommendation" element={<Recommendation />}></Route>
       </Routes>
       </BrowserRouter>
     </div>
