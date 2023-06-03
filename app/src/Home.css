@@ -4,4 +4,60 @@
     font-size: 14px; /* Set the desired font size */
     /* Add any other desired styles */
   }
+
+  /*.container {
+    float: left;
+    margin-right: 20px; //Add some spacing between the image and other content 
+  }*/
+
+  /*.right-container {
+    flex: 1;
+    padding: 10px;
+}*/
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+  .left-container {
+    flex: 1;
+    padding: 10px;
+}
+
+
+
+.right-container {
+  flex: 3;
+  padding: 30px;
+}
+
+.image {
+  position: absolute;
+  top: 50%;
+  right: 20px;
+  transform: translateY(-50%);
+}
+
+@keyframes moveUpDown {
+  0% {
+    transform: translateX(-50%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+.moving-text {
+  position: absolute;
+  top: 20;
+  right: 50%;
+  transform: translateX(50%);
+  animation: moveUpDown 4s linear infinite;
+}
+
+
+
+
   
