@@ -19,6 +19,7 @@ const Login = () => {
         if (validate()) {
             //console.log('proceed');
             fetch('http://localhost:8080/registration/' + username).then((res) => {
+                console.log ('http://localhost:8080/registration/' + username);
                 return res.json();
             }).then((resp) => {
                 console.log(resp);
