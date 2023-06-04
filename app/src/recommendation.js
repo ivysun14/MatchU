@@ -3,7 +3,10 @@ import React, { useState, useEffect } from 'react';
 import testData from './Display_testDB.json';
 import './Display.css';
 
-const testUser = testData[0];
+const userName = sessionStorage.getItem('username');
+
+const element = testData.find(item => item.id === userName);
+const testUser = [element][0];
 
 const Recommendation = () => {
 
@@ -99,7 +102,7 @@ const Recommendation = () => {
                 <div className="card">
                     <div className="card-header">
                         <p></p>
-                        <h1 align="center">Hi! Find Your Partners On MatchU!</h1>
+                        <h1 align="center">Hi, {userName}! Find Your Partners On MatchU!</h1>
                         <p></p>
                     </div>
                 </div>
