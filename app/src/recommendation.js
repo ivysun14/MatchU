@@ -3,7 +3,10 @@ import React, { useState, useEffect } from 'react';
 import testData from './Display_testDB.json';
 import './Display.css';
 
-const testUser = testData[0];
+const userName = sessionStorage.getItem('username');
+
+const element = testData.find(item => item.id === userName);
+const testUser = [element][0];
 
 const Recommendation = () => {
 

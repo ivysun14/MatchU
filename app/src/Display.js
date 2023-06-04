@@ -9,29 +9,10 @@ import './Display.css';
 // by a route or the real database
 import testData from './Display_testDB.json';
 
-// This is a test user, should be replaced by a real user logged in,
-// probably shoule use query to get the id/username, then everything works
-// the same as this test user
-const testUser = testData[0];
-// essentially
-/*
-{
-    "id": "Angel",
-    "password": "hahaha",
-    "age": "19",
-    "campus": "UCLA",
-    "gender": "Female",
-    "major": "Engineering",
-    "aboutyou": "hhhhh",
-    "pregender": "Male"
-    }
-*/
+const userName = sessionStorage.getItem('username');
 
-// also, the url to the display webpage for this specific user should be
-// http://localhost:3000/display?id=username/
-// where "username" is the id of the user
-
-
+const element = testData.find(item => item.id === userName);
+const testUser = [element];
 
 const Display = () => {
   const navigate = useNavigate();
@@ -100,6 +81,7 @@ const Display = () => {
     pregenderchange('');
   };
 
+  testData = testData.filter(user => user.id !== userName);
 
   return (
     <div>
@@ -107,7 +89,7 @@ const Display = () => {
         <div className="card">
           <div className="card-header">
             <p></p>
-            <h1 style={{ textAlign: 'center', color: 'lightblue' }}>Hi! Find Your Partners On MatchU!</h1>
+            <h1 align="center">Hi, {userName}! Find Your Partners On MatchU!</h1>
             <p></p>
           </div>
         </div>
@@ -270,10 +252,9 @@ const Display = () => {
                       <label for="searchbox" style={{ fontWeight: 'bold', marginRight: '4pt' }}>Search</label>
                       <input class='input mb-3' type="search" id="searchbox" placeholder="Enter keywords..."></input>
                     </div>
-
                     <ul>
-                      {filteredUsers.map((user, index) => (
-                        <li>
+                      {testData.map((user, index) => (
+                        <li key={user.id}>
                           <div class="userContainer">
                             <div class="innerUserContainer">
                               <div class="userImage">

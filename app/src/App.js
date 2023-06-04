@@ -5,7 +5,7 @@ import Home from './Home';
 import Login from './Login';
 import Register from './Register';
 import Display from './Display'
-import Recommendation from './Recommendation'
+import Recommendation from './recommendation'
 import {ToastContainer} from 'react-toastify';
 
 import './App.css'; // Import the CSS file

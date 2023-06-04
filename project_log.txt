@@ -635,3 +635,11 @@ Things incomplete so far:
         query to direct to the specific matching page for him/her.
     3. Image.
     4. Redirecting to the next page after finding some one.
+
+03/06/2023
+=======================
+Display Page Continued:
+
+Now the user is the user logged in.
+
+Now the user it self will not be displayed in display page.
