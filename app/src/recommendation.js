@@ -94,20 +94,30 @@ const Recommendation = () => {
     }, []);
 
     return (
-        <div>
+        <div style={{
+            backgroundColor: 'lightblue',
+            padding: '20px',
+            minHeight: '100vh',
+        }}>
+        
+        <div class="container">
+            <img src="https://www.avoxi.com/wp-content/uploads/2022/03/Swipe-Right-5-Questions-for-CPaaS-Providers-Blog.png" alt="Image description" width="800" class="image-1" />
+         </div>
             <form className="container">
                 <div className="card">
                     <div className="card-header">
                         <p></p>
-                        <h1 align="center">Hi! Find Your Partners On MatchU!</h1>
+                        <h1 style={{ textAlign: 'center', color: 'lightblue' }}>Hi! Find Your Partners On MatchU!</h1>
                         <p></p>
                     </div>
                 </div>
             </form>
-            <button onClick={() => navigate('/')}>Go Back</button> {/* Add a button to go back to the main page */}
+            <div>
+                <button onClick={() => navigate('/')}>Go Back</button> {/* Add a button to go back to the main page */}
+            </div>
             <p></p>
             <p></p>
-            <h1>Your top ten match</h1>
+            <h1 style={{ color: 'white' }}>Your top ten match</h1>
 
             <ul>
                 {recommendedUsers.map((user, index) => (
