@@ -78,5 +78,25 @@
     "major": "Mathematics and Statistics",
     "aboutyou": "Who are they? Who are they? Who are they? Who are they? Who are they? Who are they? Who are they?",
     "pregender": "Female"
+    },
+    {
+    "id": "Kate",
+    "password": "testuser",
+    "age": "19",
+    "campus": "UCLA",
+    "gender": "Female",
+    "major": "Engineering",
+    "aboutyou": "hhhhh",
+    "pregender": "Male"
+    },
+    {
+    "id": "David",
+    "password": "cannotfigure",
+    "age": "22",
+    "campus": "UC Davis",
+    "gender": "Male",
+    "major": "Agriculture, Agriculture Operations, and Related Sciences",
+    "aboutyou": "Corn.",
+    "pregender": "Female"
     }
 ]

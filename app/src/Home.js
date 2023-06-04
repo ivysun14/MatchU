@@ -1,10 +1,10 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from "react";
-//import './Home.css'; // Import CSS file for styling
 import List from './List';
 import Display from './Display';
 import dbData from './db.json';
 
+import './Home.css';
 
 
 
@@ -110,122 +110,18 @@ const Home = () => {
                 <Link style={{float:'right'}} to={'/login'}>Logout</Link>
 
             </div>
-            <h1 className="text-center">Welcome to MatchU</h1>
+            <h1 style={{ color: 'yellow' }} className="text-center moving-text">Welcome to MatchU</h1>
 
-            <h4>Find your matching!</h4>
+      <div class="container">
+            <div class="left-container">
+              <img src="https://static.vecteezy.com/system/resources/previews/005/004/267/non_2x/hand-drawn-mobile-phone-chat-and-heart-symbol-for-long-distance-relationship-illustration-vector.jpg" alt="Image description" class="image2" width="370"/>
+            </div>
+            <div class="right-container">
+              <img src="https://s.yimg.com/uu/api/res/1.2/_SwwaILifiYVUw7g0xpbIA--~B/Zmk9ZmlsbDtoPTU0NDt3PTg3NTthcHBpZD15dGFjaHlvbg--/https://o.aolcdn.com/images/dims?crop=5000%2C3105%2C0%2C324&quality=85&format=jpg&resize=1600%2C994&image_uri=https%3A%2F%2Fs.yimg.com%2Fos%2Fcreatr-images%2F2019-02%2Fc5a6a500-3433-11e9-b7cf-e0ed95a21905&client=a1acac3e1b3290917d92&signature=95dc5aa94df6ba623681b45dd27ff05a86a5978c.cf.webp" alt="Image" class="image" width="500" />
+            </div>
+      </div>
             
 
-            <div style={{ display: 'inline-block', border: '5px solid #ccc', padding: '10px', backgroundColor: 'white' }}>
-            <h7>You can use a filter down here:</h7>
-            
-            
-            {/*Filter button */}
-            <div className="col-lg-6">
-                                    <div className="form-group">
-                                        <label>Age<span className="errormsg"></span></label>
-                                        <select 
-                                        value={age}
-                                        onChange={e => agechange(e.target.value)}
-                                        className="form-control"
-                                        style={{ width: '40px', height: '20px', fontSize: '14px'}}
-                                      >
-                                            <option>    </option>
-                                            <option value="18-22">18-22</option>
-                                            <option value="23-25">23-25</option>
-                                            <option value="26-30+">26-30+</option>
-                                        </select>
-                                    </div>
-                                </div>
-            <div className="col-lg-6">
-                                    <div className="form-group">
-                                        <label>Campus<span className="errormsg"></span></label>
-                                        <select 
-                                        value={campus}
-                                        onChange={e => campus(e.target.value)}
-                                        className="form-control"
-                                        style={{ width: '80px', height: '20px', fontSize: '14px' }}
-                                      >
-                                            <option>    </option>
-                                            <option value="UCLA">UCLA</option>
-                                            <option value="UC Berkeley">UC Berkeley</option>
-                                            <option value="UC Davis">UC Davis</option>
-                                            <option value="UC Riverside">UC Riverside</option>
-                                            <option value="UC Irvine">UC Irvine</option>
-                                            <option value="UC Merced">UC Merced</option>
-                                            <option value="UC San Diego">UC San Diego</option>
-                                            <option value="UC Santa Barbara">UC Santa Barbara</option>
-                                            <option value="UC Santa Cruz">UC Santa Cruz</option>
-                                        </select>
-                                    </div>
-                                </div>
-             <div className="col-lg-6">
-                                    <div className="form-group">
-                                        <label>Major Area<span className="errormsg"></span></label>
-                                        <select 
-                                        value={major} 
-                                        onChange={e => majorchange(e.target.value)} 
-                                        className="form-control"
-                                        style={{ width: '110px', height: '20px', fontSize: '14px' }}
-                                        >
-
-                                            <option>    </option>
-                                            <option value="Agriculture, Agriculture Operations, and Related Sciences">
-                                                Agriculture, Agriculture Operations, and Related Sciences</option>
-                                            <option value="Architecture and Related Services">Aviation</option>
-                                            <option value="Area, Ethnic, Cultural, Gender, and Group Studies">Aviation</option>
-                                            <option value="Aviation">Aviation</option>
-                                            <option value="Biological and Biomedical Sciences">Biological and Biomedical Sciences</option>
-                                            <option value="Business, Management, Marketing, and Related Support Services">
-                                                Business, Management, Marketing, and Related Support Services</option>
-                                            <option value="Communication, Journalism, and Related Programs">
-                                                Communication, Journalism, and Related Programs</option>
-                                            <option value="Communications Technologies/technicians and Support Services">
-                                                Communications Technologies/technicians and Support Services</option>
-                                            <option value="Computer and Information Sciences and Support Services">
-                                                Computer and Information Sciences and Support Services</option>
-                                            <option value="Construction Trades">Construction Trades</option>
-                                            <option value="Education">Education</option>
-                                            <option value="Engineering Technologies and Engineering-Related Fields">
-                                                Engineering Technologies and Engineering-Related Fields</option>
-                                            <option value="Engineering">Engineering</option>
-                                            <option value="English Language and Literature/letters">English Language and Literature/letters</option>
-                                            <option value="Family and Consumer Sciences/human Sciences">Family and Consumer Sciences/human Sciences</option>
-                                            <option value="Foreign Languages, Literatures, and Linguistics">
-                                                Foreign Languages, Literatures, and Linguistics</option>
-                                            <option value="Health Professions and Related Programs">Health Professions and Related Programs</option>
-                                            <option value="History">History</option>
-                                            <option value="Homeland Security, Law Enforcement, Firefighting">
-                                                Homeland Security, Law Enforcement, Firefighting</option>
-                                            <option value="Human Services">Human Services</option>
-                                            <option value="Legal Professions and Studies">Legal Professions and Studies</option>
-                                            <option value="Liberal Arts and Sciences Studies and Humanities">
-                                                Liberal Arts and Sciences Studies and Humanities</option>
-                                            <option value="Library Science">Library Science</option>
-                                            <option value="Mathematics and Statistics">Mathematics and Statistics</option>
-                                            <option value="Mechanic and Repair Technologies/technicians">
-                                                Mechanic and Repair Technologies/technicians</option>
-                                            <option value="Military Technologies and Applied Sciences">
-                                                Military Technologies and Applied Sciences</option>
-                                            <option value="Multi/interdisciplinary Studies">Multi/interdisciplinary Studies</option>
-                                            <option value="Natural Resources and Conservation">Natural Resources and Conservation</option>
-                                            <option value="Parks, Recreation, Leisure, and Fitness Studies">
-                                                Parks, Recreation, Leisure, and Fitness Studies</option>
-                                            <option value="Personal and Culinary Services">Personal and Culinary Services</option>
-                                            <option value="Philosophy and Religious Studies">Philosophy and Religious Studies</option>
-                                            <option value="Physical Sciences">Physical Sciences</option>
-                                            <option value="Precision Production">Precision Production</option>
-                                            <option value="Psychology">Psychology</option>
-                                            <option value="Science Technologies/technicians">Science Technologies/technicians</option>
-                                            <option value="Social Sciences">Social Sciences</option>
-                                            <option value="Theology and Religious Vocations">Theology and Religious Vocations</option>
-                                            <option value="Transportation and Materials Moving">Transportation and Materials Moving</option>
-                                            <option value="Visual and Performing Arts">Visual and Performing Arts</option>
-
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                        
 
              {/* Console buttons */}
             {data.map((item, index) => (

@@ -4,6 +4,8 @@ import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 import { useEffect } from "react";
 
+//import './Login.css';
+
 const Login = () => {
     const [username, usernameupdate] = useState('');
     const [password, passwordupdate] = useState('');
@@ -19,6 +21,7 @@ const Login = () => {
         if (validate()) {
             //console.log('proceed');
             fetch('http://localhost:8080/registration/' + username).then((res) => {
+                console.log ('http://localhost:8080/registration/' + username);
                 return res.json();
             }).then((resp) => {
                 console.log(resp);
@@ -54,6 +57,18 @@ const Login = () => {
     }
 
     return (
+
+    <div
+    style={{
+        backgroundColor: 'lightblue',
+        padding: '5px',
+        minHeight: '100vh',
+    }}>
+    <div class="container">
+    <img src="https://static-prod.adweek.com/wp-content/uploads/2021/07/influencers-voice-2021.jpg.webp" alt="Image description" width="600" class="image-1" />
+    </div>
+    
+
         <div className="row">
             <div className="offset-lg-3 col-lg-6" style={{ marginTop: '100px' }}>
                 <form className="container" onSubmit={ProceedLogin}>
@@ -81,6 +96,7 @@ const Login = () => {
             </div>
 
         </div>
+    </div>
     );
 }
 
