@@ -1,0 +1,72 @@
+.Profile {
+    width: 800px;
+    height: 780px;
+    background: rgb(245, 243, 177);
+    border-radius: 10px;
+    box-shadow: 0px 1px 10px 1px black;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.upper-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 200px;
+    background: linear-gradient(to left, blue, red);
+}
+
+.image-container img {
+    background: white;
+    width: 200px;
+    height: 200px;
+    border-radius: 100%;
+    padding: 5px;
+    transform: translate(95px, 45px);
+}
+
+img {
+    border: 2px solid purple;
+}
+
+.lower-container {
+    margin-top: 60px;
+    height: 500px;
+    background: rgb(245, 243, 177);
+    text-align: center;
+}
+
+.color_text {
+    color: blanchedalmond;
+    font-weight: bold;
+    font-size: 42px;
+}
+
+.icon {
+    font-size: 22px;
+    color: black;
+}
+
+.labels {
+    font-size: 16px;
+}
+
+.someclass {
+    width: 300px;
+}
+
+.noteclass {
+    width: 600px;
+    height: 100px;
+}
+
+
+.button_control {
+    height: 20px;
+    width: 20px;
+    font-size: 16px;
+}
+
+.text {
+    font-size: 12px;
+}

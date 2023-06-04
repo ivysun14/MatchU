@@ -217,8 +217,10 @@ const Register = () => {
                                 </div>
                                 <div className="mb-3">
                                     <div className="form-group">
-                                        <label className="form-label">Profile Picture<span className="errormsg">*</span></label>
-                                        <input type="file" className="form-control"></input>
+                                        <form action="http://localhost:8080/registration" method="post" enctype="multipart/form-data">
+                                            <label className="form-label">Profile Picture<span className="errormsg">*</span></label>
+                                            <input type="file" id="image_input" className="form-control"></input>
+                                        </form>
                                     </div>
                                 </div>
                             </div>
