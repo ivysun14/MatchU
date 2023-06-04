@@ -107,7 +107,7 @@ const Display = () => {
         <div className="card">
           <div className="card-header">
             <p></p>
-            <h1 align="center">Hi! Find Your Partners On MatchU!</h1>
+            <h1 style={{ textAlign: 'center', color: 'lightblue' }}>Hi! Find Your Partners On MatchU!</h1>
             <p></p>
           </div>
         </div>
@@ -239,9 +239,11 @@ const Display = () => {
           {/* Add the Recommendation button */}
           <div className="card mt-4">
             <div className="card-body">
-              <button className="btn btn-primary" onClick={() => navigate('/recommendation')}>
+                <h8>Click here to check a recommendation for you!</h8><br />
+                <button className="btn btn-primary" onClick={() => navigate('/recommendation')}>
                 Recommendation
               </button>
+                
             </div>
           </div>
         </div >

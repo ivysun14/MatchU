@@ -110,7 +110,7 @@ const Home = () => {
                 <Link style={{float:'right'}} to={'/login'}>Logout</Link>
 
             </div>
-            <h1 className="text-center moving-text">Welcome to MatchU</h1>
+            <h1 style={{ color: 'yellow' }} className="text-center moving-text">Welcome to MatchU</h1>
 
       <div class="container">
             <div class="left-container">
