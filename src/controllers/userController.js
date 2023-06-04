@@ -1,5 +1,17 @@
 const User = require('../models/userModel');
+const multer = require('multer');
 
+// set storage
+const storage = multer.diskStorage({
+    destination: 'uploads',
+    filename: (req, file, cb) => {
+        cb(null, file.originalname)
+    },
+})
+// set upload
+const upload = multer({
+    storage: storage
+}).single('picture')
 
 // GET
 // get all users
@@ -28,110 +40,66 @@ exports.listSpecificUsers = async (req, res) => {
 
 
 // POST
-// insert a user into database
+// insert a user with his/her image into database
 exports.insertSingleUser = async (req, res) => {
+    upload(req, res, (err) => {
+        if (err) {
+            console.log(err)
+        }
+        else {
+            const newUser = new User({
+                id: req.body.id,
+                password: req.body.password,
+                age: req.body.age,
+                campus: req.body.campus,
+                gender: req.body.gender,
+                major: req.body.major,
+                aboutyou: req.body.aboutyou,
+                pregender: req.body.pregender,
+                picture: {
+                    data: req.file.filename,
+                    contentType: 'image/png/jpeg'
+                }
+            })
 
-    const newUser = new User({
-        id: req.body.id,
-        password: req.body.password,
-        age: req.body.age,
-        campus: req.body.campus,
-        gender: req.body.gender,
-        major: req.body.major,
-        aboutyou: req.body.aboutyou,
-        pregender: req.body.pregender,
-        picture: req.body.picture
-    });
-
-    try {
-        await newUser.save();
-        res.json(newUser);
-    } catch (error) {
-        res.status(400).json({ message: error });
-    }
-
+            newUser.save()
+                .then(() => res.send('User profile and image successfully uploaded.'))
+                .catch((err) => console.log(err));
+        }
+    })
 }
+
 
 // PATCH
 // update a user in the database
 exports.updateSingleUser = async (req, res) => {
-
     let paramID = req.params.id;
+    let password = req.body.password;
+    let age = req.body.age;
+    let campus = req.body.campus;
+    let gender = req.body.gender;
+    let major = req.body.major;
+    let aboutyou = req.body.aboutyou;
     let pregender = req.body.pregender;
 
     try {
-        const updateUser = await User.updateOne({ _id: paramID }, { pregender: pregender });
+        const updateUser = await User.updateOne(
+            { _id: paramID },
+            {
+                $set: {
+                    password: password,
+                    age: age,
+                    campus: campus,
+                    gender: gender,
+                    major: major,
+                    aboutyou: aboutyou,
+                    pregender: pregender,
+                },
+            }
+        );
+
         res.json(updateUser);
     } catch (error) {
         res.status(400).json({ message: error });
     }
-
-}
-
-// insert dummy users into database
-/*
-async function insertUsers() {
-    try {
-        await User.insertMany([
-            {
-                "id": "David",
-                "password": "05242023",
-                "age": 22,
-                "campus": "UC Davis",
-                "gender": "Male",
-                "major": "Biology",
-                "pregender": "Female"
-            },
-            {
-                "id": "Alexa",
-                "password": "05242022",
-                "age": 20,
-                "campus": "UC Berkeley",
-                "gender": "Female",
-                "major": "Engineering",
-                "pregender": "Female"
-            },
-            {
-                "id": "Caroline",
-                "password": "05222022",
-                "age": 21,
-                "campus": "UC Merced",
-                "gender": "Female",
-                "major": "English",
-                "pregender": "Male"
-            },
-            {
-                "id": "Tony",
-                "password": "05222021",
-                "age": 21,
-                "campus": "UC Riverside",
-                "gender": "Male",
-                "major": "Computer Science",
-                "pregender": "Female"
-            },
-            {
-                "id": "Spencer",
-                "password": "05222025",
-                "age": 20,
-                "campus": "UC Irvine",
-                "gender": "Male",
-                "major": "Business",
-                "pregender": "Female"
-            },
-            {
-                "id": "Jessica",
-                "password": "05222225",
-                "age": 22,
-                "campus": "UCLA",
-                "gender": "Female",
-                "major": "Statistics",
-                "pregender": "Male"
-            },
-        ]);
-    } catch (error) {
-        console.log(error);
-    }
-}
-
-insertUsers();
-*/
+};

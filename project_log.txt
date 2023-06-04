@@ -643,3 +643,123 @@ Display Page Continued:
 Now the user is the user logged in.
 
 Now the user it self will not be displayed in display page.
+
+05/29/2023
+=======================
+Deleted campuses route since it's no longer used.
+
+Successfully uploaded images to mongoDB on backend using Postman with the modified POST API inside userContoller.js. A new middleware multer is also used:
+    
+    const User = require('../models/userModel');
+    const multer = require('multer');
+
+    // set storage
+    const storage = multer.diskStorage({
+        destination: 'uploads',
+        filename: (req, file, cb) => {
+            cb(null, file.originalname)
+        },
+    })
+    // set upload
+    const upload = multer({
+        storage: storage  
+    }).single('picture')
+    
+    // GET methods...
+
+    // POST
+    // insert a user with his/her image into database
+    exports.insertSingleUser = async (req, res) => {
+        upload(req, res, (err) => {
+            if (err) {
+                console.log(err)
+            }
+            else {
+                const newUser = new User({
+                    id: req.body.id,
+                    password: req.body.password,
+                    age: req.body.age,
+                    campus: req.body.campus,
+                    gender: req.body.gender,
+                    major: req.body.major,
+                    aboutyou: req.body.aboutyou,
+                    pregender: req.body.pregender,
+                    picture: {
+                        data: req.file.filename,
+                        contentType: 'image/png/jpeg'
+                    }
+                })
+
+                newUser.save()
+                    .then(() => res.send('User profile and image successfully uploaded.'))
+                    .catch((err) => console.log(err));
+            }
+        })
+    }
+
+    // PATCH method...
+
+The uploaded pictures from Postman should be inside the directory MatchU/uploads.
+Still trying to figure out frontend implementation of parsing picture filename and how to display the uploaded pictures on webpage.
+
+Implemented a new frontend page: Profile.js with its styles specified in Profile.css.
+    This page allows the user to modify their account information, such as password, age, campus, major, and more.
+    The users can access their personal profile on the upper right corner of the main display page, through clicking on
+    their images. They will then be re-directed to this new profile page, where their current user information will be shown.
+    They are allowed to correct certain fields and save the changes. A new match should then be shown if matching references
+    have changed.
+
+In order to implement this page, a new backend API method PATCH is specified in userController.js:
+
+    // other API methods....
+
+    // PATCH
+    // update a user in the database
+    exports.updateSingleUser = async (req, res) => {
+        let paramID = req.params.id;
+        let password = req.body.password;
+        let age = req.body.age;
+        let campus = req.body.campus;
+        let gender = req.body.gender;
+        let major = req.body.major;
+        let aboutyou = req.body.aboutyou;
+        let pregender = req.body.pregender;
+
+        try {
+            const updateUser = await User.updateOne(
+                { _id: paramID },
+                {
+                    $set: {
+                        password: password,
+                        age: age,
+                        campus: campus,
+                        gender: gender,
+                        major: major,
+                        aboutyou: aboutyou,
+                        pregender: pregender,
+                    },
+                }
+            );
+
+            res.json(updateUser);
+        } catch (error) {
+            res.status(400).json({ message: error });
+        }
+    };
+
+The feature of updating images have not been implemented. In fact currently frontend posting with images does not work yet.
+
+Inside users.js, the router to this API is specified. The users.js file now looks like:
+
+    const express = require('express');
+    const router = express.Router();
+    const userContoller = require('../controllers/userController');
+
+    router.get('/', userContoller.listUsers);
+    router.get('/:username', userContoller.listSpecificUsers);
+    router.post('/', userContoller.insertSingleUser);
+    router.patch('/:id', userContoller.updateSingleUser);
+
+    module.exports = router;
+
+The front end code for this new page is in Profile.js and Profile.css.

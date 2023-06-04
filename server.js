@@ -1,7 +1,6 @@
 const express = require('express'); // pull express packege
 const cors = require('cors');
 const usersRoute = require('./src/routes/users'); // import the routes for users
-const campusesRoute = require('./src/routes/campuses'); // import the routes for campuses
 const app = express(); // app variable that can be used to configure the server
 const PORT = 8080; // define a port
 const mongoose = require('mongoose'); // request mongoose package
@@ -16,7 +15,6 @@ app.use((req, res, next) => {
     next();
 });
 app.use('/registration', usersRoute);
-app.use('/api/v1/campuses', campusesRoute);
 
 // fire api on the server
 app.listen(
