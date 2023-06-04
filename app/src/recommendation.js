@@ -1,14 +1,18 @@
 import { useNavigate } from 'react-router-dom';
 import React, { useState, useEffect } from 'react';
-import testData from './Display_testDB.json';
 import './Display.css';
 
-const userName = sessionStorage.getItem('username');
-
-const element = testData.find(item => item.id === userName);
-const testUser = [element][0];
 
 const Recommendation = () => {
+
+  const userName = sessionStorage.getItem('username');
+  const userDataBase = JSON.parse(sessionStorage.getItem('userDataBase'));
+
+  console.log(userName)
+  console.log(userDataBase)
+  
+    const element = userDataBase.find(item => item.id === userName);
+    const userDB = [element][0];
 
     const navigate = useNavigate();
     
@@ -54,14 +58,23 @@ const Recommendation = () => {
         return degrees * (Math.PI / 180);
     };
 
-    const handleRecommendation = () => {
-        // Filter out users with different biological sex than their preferred biological sex
-        const filteredUsers = testData.filter((user) => {
-            return (
-                user.pregender === testUser.gender &&
-                user.gender === testUser.pregender
-            );
-        });
+    // const handleRecommendation = () => {
+    //     // Filter out users with different biological sex than their preferred biological sex
+    //     const filteredUsers = userDataBase.filter((user) => {
+    //         return (
+    //             user.pregender === userDB.gender &&
+    //             user.gender === userDB.pregender
+    //         );
+    //     });
+
+    const filteredUsers = userDataBase.filter(user =>
+        (user.pregender === userDB.gender &&
+        user.gender === userDB.pregender)
+      );
+
+      console.log(filteredUsers);
+
+      const handleRecommendation = () => {
 
         // Calculate similarity scores for each user
         const similarityScores = filteredUsers.map((user) => {
@@ -72,9 +85,9 @@ const Recommendation = () => {
             // Add more factors and adjust their weights as necessary
 
             // Calculate similarity score for the current user
-            const ageScore = 1 - Math.abs(user.age - testUser.age) / 100;
-            const majorScore = user.major === testUser.major ? 1 : 0;
-            const distanceScore = calculateDistance(testUser.campus, user.campus);
+            const ageScore = 1 - Math.abs(user.age - userDB.age) / 100;
+            const majorScore = user.major === userDB.major ? 1 : 0;
+            const distanceScore = calculateDistance(userDB.campus, user.campus);
 
             // Calculate the overall similarity score
             const similarityScore =
@@ -96,6 +109,8 @@ const Recommendation = () => {
         handleRecommendation(); // Call handleRecommendation when the component is rendered
     }, []);
 
+    console.log(recommendedUsers);
+
     return (
         <div>
             <form className="container">
@@ -111,7 +126,6 @@ const Recommendation = () => {
             <p></p>
             <p></p>
             <h1>Your top ten match</h1>
-
             <ul>
                 {recommendedUsers.map((user, index) => (
                     <li>

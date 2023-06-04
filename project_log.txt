@@ -636,10 +636,18 @@ Things incomplete so far:
     3. Image.
     4. Redirecting to the next page after finding some one.
 
-03/06/2023
+06/03/2023
 =======================
 Display Page Continued:
 
 Now the user is the user logged in.
 
-Now the user it self will not be displayed in display page.
+Now the user itself will not be displayed in display page.
+
+06/04/2023
+=======================
+Display and Recommendation Pages Continued:
+
+Now the database is from api "http://localhost:8080/registation/"
+
+Removed file Display_testDB.json

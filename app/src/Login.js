@@ -12,6 +12,22 @@ const Login = () => {
 
     const usenavigate = useNavigate();
 
+    const [userDataBase, setUserDataBase] = useState([])
+
+    const fetchUserData = () => {
+        fetch("http://localhost:8080/registration/")
+        .then(response => {
+            return response.json()
+        })
+        .then(data => {
+            setUserDataBase(data);
+        })
+    }
+
+  useEffect(() => {
+    fetchUserData();
+  }, [])
+
     useEffect(() => {
         sessionStorage.clear(); // so the person have to log back in when logged out 
     }, [])
@@ -31,6 +47,7 @@ const Login = () => {
                     if (resp.password === password) {
                         toast.success('Success');
                         sessionStorage.setItem('username', username);
+                        sessionStorage.setItem('userDataBase', JSON.stringify(userDataBase));
                         usenavigate('/');
                     } else {
                         toast.error('Please Enter Valid Credentials');
