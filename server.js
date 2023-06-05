@@ -22,19 +22,6 @@ app.listen(
     () => console.log(`Running Express Server on http://localhost:${PORT}`)
 );
 
-// routes
-app.get('/', (req, res) => {
-    res.status(200).send('This is the home (login) page')
-});
-
-app.get('/match_display', (req, res) => {
-    res.status(200).send('This is the match display page')
-});
-
-app.get('/chat', (req, res) => {
-    res.status(200).send('This is the chat page')
-});
-
 // connect to DB
 mongoose.connect(
     process.env.DB_CONNECTION,

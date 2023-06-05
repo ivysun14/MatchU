@@ -5,6 +5,6 @@ const userContoller = require('../controllers/userController');
 router.get('/', userContoller.listUsers);
 router.get('/:username', userContoller.listSpecificUsers);
 router.post('/', userContoller.insertSingleUser);
-router.patch('/:id', userContoller.updateSingleUser);
+router.patch('/:username', userContoller.updateSingleUser);
 
 module.exports = router;
