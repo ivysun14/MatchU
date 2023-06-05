@@ -92,7 +92,7 @@ const Profile = () => {
                 body: JSON.stringify(regobj) //converts a JavaScript object or value into a JSON string representation
             }).then((res) => {
                 toast.success('Information updated successfully.');
-                navigate('/');
+                navigate('/home');
             }).catch((err) => {
                 toast.error('Failed :' + err.message);
             });
@@ -214,7 +214,7 @@ const Profile = () => {
                     </div>
                 </div>
                 <br></ br>
-                <button type="submit" className="btn btn-primary">Submit changes</button> | <Link className="btn btn-success" to={'/'}>Back to main</Link>
+                <button type="submit" className="btn btn-primary">Submit changes</button> | <Link className="btn btn-success" to={'/home'}>Back to main</Link>
                 <br></ br>
                 <span className='text'>*Only fields with <AiFillEdit className='icon' /> are editable</ span>
             </div>

@@ -49,7 +49,7 @@ const Login = () => {
                         toast.success('Success');
                         sessionStorage.setItem('username', username);
                         sessionStorage.setItem('userDataBase', JSON.stringify(userDataBase));
-                        usenavigate('/display');
+                        usenavigate('/home');
                     } else {
                         toast.error('Please Enter Valid Credentials');
                     }
