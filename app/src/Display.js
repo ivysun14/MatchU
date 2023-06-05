@@ -219,9 +219,11 @@ const Display = () => {
           {/* Add the Recommendation button */}
           <div className="card mt-4">
             <div className="card-body">
-              <button className="btn btn-primary" onClick={() => navigate('/recommendation')}>
+                <h8>Click here to check a recommendation for you!</h8><br />
+                <button className="btn btn-primary" onClick={() => navigate('/recommendation')}>
                 Recommendation
               </button>
+                
             </div>
           </div>
         </div >

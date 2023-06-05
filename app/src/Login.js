@@ -78,13 +78,13 @@ const Login = () => {
     <div
     style={{
         backgroundColor: 'lightblue',
-        padding: '20px',
+        padding: '5px',
         minHeight: '100vh',
     }}>
-    
     <div class="container">
     <img src="https://static-prod.adweek.com/wp-content/uploads/2021/07/influencers-voice-2021.jpg.webp" alt="Image description" width="600" class="image-1" />
     </div>
+    
 
         <div className="row">
             <div className="offset-lg-3 col-lg-6" style={{ marginTop: '100px' }}>

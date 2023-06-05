@@ -4,14 +4,17 @@
   align-items: center;
   height: 100vh;
 }*/
+
 .container {
-    position: relative;
+  position: relative;
 }
 
 .image-1 {
     position: absolute;
     top: 0;
-    left: 40;
+    right: 40;
 }
+
+
 
 

@@ -1,8 +1,4 @@
 const mongoose = require('mongoose');
-//COMMENTED OUT: these three modules are not installed and the below 3 lines cause program to crash!
-//const validator = require('validator');
-//const bcrypt = require('bcryptjs');
-//const session = require('express-session');
 
 const userSchema = new mongoose.Schema(
   {
@@ -10,7 +6,6 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: [true, 'A user must have a name'],
       unique: true,
-      //trim: true,
       maxlength: [15, 'A posted name cannot exceed 15 characters']
     },
 
@@ -58,20 +53,6 @@ const userSchema = new mongoose.Schema(
       data: Buffer,
       contentType: String
     }
-
-    /*
-    passwordConfirm: {
-      type: String,
-      required: [true, 'Please confirm your password'],
-      validate: {
-        validator: function (el) {
-          return el === this.password;
-        },
-        message: 'Passwords are not the same!'
-      }
-    },
-    passwordChangedAt: Date
-    */
   });
 
 // create a model, give it a name, and provide the schema to use
