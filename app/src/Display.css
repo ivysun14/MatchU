@@ -70,3 +70,17 @@ ul {
     margin-right: 20px;
 }
 
+.container .userLink {
+    color: black;
+}
+
+/* Using !important */
+.userLink {
+    color: black !important;
+}
+
+.userLink:hover {
+    color: grey !important;
+}
+
+
