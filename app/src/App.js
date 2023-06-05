@@ -7,6 +7,7 @@ import Register from './Register';
 import Display from './Display';
 import Recommendation from './recommendation';
 import Profile from './Profile';
+import Page from './Page';
 import { ToastContainer } from 'react-toastify';
 
 import './App.css'; // Import the CSS file
@@ -20,12 +21,13 @@ function App() {
       <ToastContainer></ToastContainer>
       <BrowserRouter>
         <Routes>
-          <Route path='/' element={<Home />}></Route>
+          <Route path='/' element={<Home />} />
           <Route path='/login' element={<Login />}></Route>
           <Route path='/register' element={<Register />}></Route>
           <Route path='/display' element={<Display />}></Route>
           <Route path="/recommendation" element={<Recommendation />}></Route>
           <Route path="/profile" element={<Profile />}></Route>
+          <Route path="/user/:userId" element={<Page />} />
         </Routes>
       </BrowserRouter>
     </div>

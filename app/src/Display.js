@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
-import { Buffer } from 'buffer';
+import { Link } from 'react-router-dom';
 import './Display.css';
 
 const Display = () => {
@@ -12,7 +12,7 @@ const Display = () => {
   const userDB = [element];
 
   const navigate = useNavigate();
-  
+
   const [ageRange, ageRangechange] = useState("");
   const [campus, campuschange] = useState("");
   const [major, majorchange] = useState("");
@@ -220,96 +220,96 @@ const Display = () => {
           {/* Add the Recommendation button */}
           <div className="card mt-4">
             <div className="card-body">
-                <h8>Click here to check a recommendation for you!</h8><br />
-                <button className="btn btn-primary" onClick={() => navigate('/recommendation')}>
+              <h8>Click here to check a recommendation for you!</h8><br />
+              <button className="btn btn-primary" onClick={() => navigate('/recommendation')}>
                 Recommendation
               </button>
-                
+
             </div>
           </div>
         </div >
 
-          <div class="right-container">
-            <div className="card">
+        <div class="right-container">
+          <div className="card">
 
-              <div className="card-header">
-                <p1 style={{ fontSize: '25px', fontWeight: 'bold' }}>Results</p1>
-              </div>
+            <div className="card-header">
+              <p1 style={{ fontSize: '25px', fontWeight: 'bold' }}>Results</p1>
+            </div>
 
-              <div class="columns mx-1">
-                <div class="column is-half is-offset-one-quarter">
+            <div class="columns mx-1">
+              <div class="column is-half is-offset-one-quarter">
 
-                  <section class="hero is-primary mb-4">
-                    <div class="hero-body">
+                <section class="hero is-primary mb-4">
+                  <div class="hero-body">
 
-                    </div>
-                  </section>
+                  </div>
+                </section>
 
 
-                  <section>
-                    <div>
-                      <label for="searchbox" style={{ fontWeight: 'bold', marginRight: '4pt' }}>Search</label>
-                      <input class='input mb-3' type="search" id="searchbox" placeholder="Enter keywords..."></input>
-                    </div>
-                    <ul>
-                      {filteredUsers.map((user, index) => (
-                        <li key={user.id}>
-                          <div class="userContainer">
-                            <div class="innerUserContainer">
-                              <div class="userImage">
-                                <h>User's Image Should Be Here</h>
-                              </div>
-                              <div class="userInfo">
-                                <div style={{ display: 'flex' }}>
-                                  <strong style={{ marginRight: '3pt' }}>Name:</strong>
-                                  <p>{filteredUsers[index]["id"]}</p>
-                                </div>
-                                <div style={{ display: 'flex' }}>
-                                  <strong style={{ marginRight: '3pt' }}>Age:</strong>
-                                  <p>{filteredUsers[index]["age"]}</p>
-                                </div>
-                                <div style={{ display: 'flex' }}>
-                                  <strong style={{ marginRight: '3pt' }}>Campus:</strong>
-                                  <p>{filteredUsers[index]["campus"]}</p>
-                                </div>
-                                <div style={{ display: 'flex' }}>
-                                  <strong style={{ marginRight: '3pt' }}>Major:</strong>
-                                  <p>{filteredUsers[index]["major"]}</p>
-                                </div>
-                                <div style={{ display: 'flex' }}>
-                                  <strong style={{ marginRight: '3pt' }}>Biological Gender:</strong>
-                                  <p>{filteredUsers[index]["gender"]}</p>
-                                </div>
-                                <div style={{ display: 'flex' }}>
-                                  <strong style={{ marginRight: '3pt' }}>Preferred Gender:</strong>
-                                  <p>{filteredUsers[index]["pregender"]}</p>
-                                </div>
-                              </div>
+                <section>
+                  <div>
+                    <label for="searchbox" style={{ fontWeight: 'bold', marginRight: '4pt' }}>Search</label>
+                    <input class='input mb-3' type="search" id="searchbox" placeholder="Enter keywords..."></input>
+                  </div>
+                  <ul>
+                    {filteredUsers.map((user, index) => (
+                      <li key={user.id}>
+                        <div class="userContainer">
+                          <div class="innerUserContainer">
+                            <div class="userImage">
+                              <h>User's Image Should Be Here</h>
                             </div>
-                            <div class="aboutMeContainer">
-                              <strong style={{ marginRight: '3pt' }}>About Me:</strong>
-                              <p>{filteredUsers[index]["aboutyou"]}</p>
-                            </div>
-                            <div class="profileUrl">
-                              <strong>Profile Link:</strong>
-                              <p>Link/Url to this user's profile (need implement)</p>
+                            <div class="userInfo">
+                              <div style={{ display: 'flex' }}>
+                                <Link
+                                  className="userLink"
+                                  to={`/user/${filteredUsers[index]["id"]}`}
+                                  onClick={() => navigate(`/user/${filteredUsers[index]["id"]}`)}
+                                >
+                                  {filteredUsers[index]["id"]}
+                                </Link>
+
+                              </div>
+                              <div style={{ display: 'flex' }}>
+                                <strong style={{ marginRight: '3pt' }}>Age:</strong>
+                                <p>{filteredUsers[index]["age"]}</p>
+                              </div>
+                              <div style={{ display: 'flex' }}>
+                                <strong style={{ marginRight: '3pt' }}>Campus:</strong>
+                                <p>{filteredUsers[index]["campus"]}</p>
+                              </div>
+                              <div style={{ display: 'flex' }}>
+                                <strong style={{ marginRight: '3pt' }}>Major:</strong>
+                                <p>{filteredUsers[index]["major"]}</p>
+                              </div>
+                              <div style={{ display: 'flex' }}>
+                                <strong style={{ marginRight: '3pt' }}>Biological Gender:</strong>
+                                <p>{filteredUsers[index]["gender"]}</p>
+                              </div>
+                              <div style={{ display: 'flex' }}>
+                                <strong style={{ marginRight: '3pt' }}>Preferred Gender:</strong>
+                                <p>{filteredUsers[index]["pregender"]}</p>
+                              </div>
                             </div>
                           </div>
-                        </li>
-                      ))}
-                    </ul>
+                          <div class="aboutMeContainer">
+                            <strong style={{ marginRight: '3pt' }}>About Me:</strong>
+                            <p>{filteredUsers[index]["aboutyou"]}</p>
+                          </div>
+                          </div>
+                      </li>
+                    ))}
+                  </ul>
 
-                  </section>
+                </section>
 
-                </div>
               </div>
             </div>
           </div>
         </div>
-
-
-      </div >
-      );
+      </div>
+    </div >
+  );
 }
 
 export default Display;
