@@ -82,27 +82,17 @@ const Profile = () => {
             });
     }, []); // Empty dependency array to run the effect only once
 
-
-    /*
-    fetch('http://localhost:8080/registration').then((res) => {
-        return res.json();
-    }).then((resp) => {
-        const obj = resp.map((users) => users);
-        console.log(obj[0]);
-    });
-    */
-
     const handlesubmit = (e) => {
         e.preventDefault(); // Prevent form submission
         let regobj = { id, password, age, campus, gender, major, aboutyou, pregender };
         if (IsValid()) {
-            fetch("http://localhost:8080/registration/6470679f9c6b17e0626cafdc", {
+            fetch("http://localhost:8080/registration/" + userName, {
                 method: "PATCH",
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(regobj) //converts a JavaScript object or value into a JSON string representation
             }).then((res) => {
                 toast.success('Information updated successfully.');
-                navigate('/display');
+                navigate('/home');
             }).catch((err) => {
                 toast.error('Failed :' + err.message);
             });
@@ -224,7 +214,7 @@ const Profile = () => {
                     </div>
                 </div>
                 <br></ br>
-                <button type="submit" className="btn btn-primary">Submit changes</button> | <Link className="btn btn-success" to={'/display'}>Back to main</Link>
+                <button type="submit" className="btn btn-primary">Submit changes</button> | <Link className="btn btn-success" to={'/home'}>Back to main</Link>
                 <br></ br>
                 <span className='text'>*Only fields with <AiFillEdit className='icon' /> are editable</ span>
             </div>

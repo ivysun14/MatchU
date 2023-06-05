@@ -73,7 +73,7 @@ const Register = () => {
                 body: JSON.stringify(regobj) //converts a JavaScript object or value into a JSON string representation
             }).then((res) => {
                 toast.success('Registered successfully.');
-                navigate('/login');
+                navigate('/');
             }).catch((err) => {
                 toast.error('Failed :' + err.message);
             });
@@ -228,7 +228,7 @@ const Register = () => {
                         </div>
                         <div className="card-footer">
                             <button type="submit" className="btn btn-primary">Register</button>   |
-                            <Link className="btn btn-success" to={'/'}>Back to Home Page</Link>
+                            <Link className="btn btn-success" to={'/'}>Back to Login Page</Link>
 
                         </div>
 

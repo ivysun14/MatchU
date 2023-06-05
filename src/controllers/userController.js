@@ -73,7 +73,7 @@ exports.insertSingleUser = async (req, res) => {
 // PATCH
 // update a user in the database
 exports.updateSingleUser = async (req, res) => {
-    let paramID = req.params.id;
+    let param = req.params.username;
     let password = req.body.password;
     let age = req.body.age;
     let campus = req.body.campus;
@@ -84,7 +84,7 @@ exports.updateSingleUser = async (req, res) => {
 
     try {
         const updateUser = await User.updateOne(
-            { _id: paramID },
+            { id: param },
             {
                 $set: {
                     password: password,
