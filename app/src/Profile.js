@@ -63,9 +63,10 @@ const Profile = () => {
         return isproceed;
     }
 
+    const userName = sessionStorage.getItem('username');
 
     useEffect(() => {
-        fetch('http://localhost:8080/registration/Kate')
+        fetch('http://localhost:8080/registration/' + userName)
             .then((res) => res.json())
             .then((resp) => {
                 console.log(resp);

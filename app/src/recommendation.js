@@ -58,15 +58,6 @@ const Recommendation = () => {
         return degrees * (Math.PI / 180);
     };
 
-    // const handleRecommendation = () => {
-    //     // Filter out users with different biological sex than their preferred biological sex
-    //     const filteredUsers = userDataBase.filter((user) => {
-    //         return (
-    //             user.pregender === userDB.gender &&
-    //             user.gender === userDB.pregender
-    //         );
-    //     });
-
     const filteredUsers = userDataBase.filter(user =>
         (user.pregender === userDB.gender &&
         user.gender === userDB.pregender)
