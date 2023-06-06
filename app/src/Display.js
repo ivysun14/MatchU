@@ -52,7 +52,7 @@ const Display = () => {
     console.log('Executing myFunction');
   };
 
-  const allUsers = userDataBase.filter(user => 
+  const allUsers = userDataBase.filter(user =>
     (((parseInt(user.age) >= parseInt(userDB[0].age) - parseInt(ageRange)) &&
       (parseInt(user.age) <= parseInt(userDB[0].age) + parseInt(ageRange))) ||
       ageRange === "")
@@ -82,6 +82,7 @@ const Display = () => {
   };
 
   let filteredUsers = allUsers.filter(user => user.id !== userName);
+
 
   useEffect(() => {
     filteredUsers.forEach((user) => {
@@ -278,9 +279,15 @@ const Display = () => {
                       <li key={user.id}>
                         <div class="userContainer">
                           <div class="innerUserContainer">
-                            <div className='image-container'>
-                              <img src={imageBuffer} alt="" />
-                            </div>
+                            <ul>
+                              {allUsers.map((user, index) => (
+                                <li key={user.id}>
+                                  <div className='image-container'>
+                                    <img src={imageBuffer[user.id]} alt="" />
+                                  </div>
+                                </li>
+                              ))}
+                            </ul>
                             <div class="userInfo">
                               <div style={{ display: 'flex' }}>
                                 <Link

@@ -1,15 +1,35 @@
 import { useParams, Link } from 'react-router-dom';
 import { useState } from 'react';
 import './Display.css';
+import React, { useEffect } from 'react';
+
+var Buffer = require('buffer/').Buffer; // declare buffer
 
 const Page = () => {
     const { userId } = useParams();
     const userDataBase = JSON.parse(sessionStorage.getItem('userDataBase'));
     const userData = userDataBase.find(item => item.id === userId);
+    const [imageBuffer, setImageBuffer] = useState(null); // initialize field for image
+
 
     const [comment, setComment] = useState('');
     const [comments, setComments] = useState([]);
 
+    useEffect(() => {
+        if (userData) {
+            fetch('http://localhost:8080/registration/' + name)
+            .then((res) => res.json())
+            .then((resp) => {
+                console.log(resp);
+                setImageBuffer(
+                `data:${resp.picture.contentType};base64, ${Buffer.from(
+                    resp.picture.data.data
+                ).toString('base64')}`
+                );
+            });
+        }
+    }, [name, userData]); // Include 'name' and 'userData' as a dependencies
+    
     // Check if userData exists before accessing its properties
     if (!userData) {
         console.log("Here is userid:")
@@ -31,7 +51,7 @@ const Page = () => {
     };
 
     return (
-
+        
         <div
             style={{
                 backgroundColor: 'lightblue',
@@ -58,9 +78,10 @@ const Page = () => {
                 <p></p>
             </div>
 
-            <div class="userImage">
-                <h>User's Image Should Be Here</h>
-            </div>
+                    <div className='image-container'>
+                        <img src={imageBuffer}></img>
+                    </div>
+
 
             <div>
                 <h1>User Profile</h1>
