@@ -1,5 +1,12 @@
 const mongoose = require('mongoose');
 
+// Define the image schema
+const imageSchema = new mongoose.Schema({
+  data: Buffer,
+  contentType: String
+});
+
+// Define the user schema and include the embedded image schema
 const userSchema = new mongoose.Schema(
   {
     id: {
@@ -50,10 +57,20 @@ const userSchema = new mongoose.Schema(
     },
 
     picture: {
-      data: Buffer,
-      contentType: String
+      type: imageSchema, // Embed the image schema as a property
+      required: [true, 'A user must provide a picture']
     }
   });
 
 // create a model, give it a name, and provide the schema to use
-module.exports = mongoose.model('Users', userSchema);
+//module.exports = mongoose.model('Users', userSchema);
+
+// Create models based on the schemas
+const User = mongoose.model('Users', userSchema);
+const Image = mongoose.model('Images', imageSchema);
+
+// Export the models
+module.exports = {
+  User,
+  Image
+};

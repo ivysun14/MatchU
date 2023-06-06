@@ -79,9 +79,6 @@ const Display = () => {
 
   let filteredUsers = allUsers.filter(user => user.id !== userName);
 
-  console.log(filteredUsers[9].picture.data);
-
-
   return (
     <div>
       <form className="container">
@@ -259,6 +256,7 @@ const Display = () => {
                             <div class="userImage">
                               <h>User's Image Should Be Here</h>
                             </div>
+<<<<<<< HEAD
                             <div class="userInfo">
                               <div style={{ display: 'flex' }}>
                                 <Link
@@ -290,6 +288,11 @@ const Display = () => {
                                 <strong style={{ marginRight: '3pt' }}>Preferred Gender:</strong>
                                 <p>{filteredUsers[index]["pregender"]}</p>
                               </div>
+=======
+                            <div class="aboutMeContainer">
+                              <strong style={{ marginRight: '3pt' }}>About Me:</strong>
+                              <p>{filteredUsers[index]["aboutyou"]}</p>
+>>>>>>> 2d83ff0dfd2c0585bbb872ff34a08648600846f7
                             </div>
                           </div>
                           <div class="aboutMeContainer">
