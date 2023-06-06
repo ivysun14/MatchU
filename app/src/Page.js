@@ -41,7 +41,7 @@ const Page = () => {
 
             <div className="header">
                 <Link to={'/'}>Home</Link>
-                <Link style={{ float: 'right' }} to={'/login'}>Logout</Link>
+                <Link style={{ float: 'right' }} to={'/'}>Logout</Link>
                 <br />
             </div>
 
