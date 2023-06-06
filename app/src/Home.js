@@ -106,9 +106,11 @@ const Home = () => {
             }}>
 
             <div className="header">
+                <Link style={{float:'left'}} to={'/profile'}>Your Profile</Link>
                 <Link style={{float:'right'}} to={'/'}>Logout</Link>
-
+                <p></p>
             </div>
+
             <h1 style={{ color: 'yellow' }} className="text-center moving-text">Welcome to MatchU</h1>
 
       <div class="container">
