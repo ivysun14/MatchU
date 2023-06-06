@@ -1,5 +1,8 @@
-const User = require('../models/userModel');
+//const User = require('../models/userModel');
+const { User, Image } = require('../models/userModel');
 const multer = require('multer');
+const fs = require('fs');
+const path = require('path');
 
 // set storage
 const storage = multer.diskStorage({
@@ -47,6 +50,12 @@ exports.insertSingleUser = async (req, res) => {
             console.log(err)
         }
         else {
+            //console.log(req.file);
+            const newImage = new Image({
+                data: fs.readFileSync(path.join('uploads/' + req.file.filename)),
+                contentType: 'image/png/jpeg'
+            });
+
             const newUser = new User({
                 id: req.body.id,
                 password: req.body.password,
@@ -56,10 +65,13 @@ exports.insertSingleUser = async (req, res) => {
                 major: req.body.major,
                 aboutyou: req.body.aboutyou,
                 pregender: req.body.pregender,
+                picture: newImage
+                /*
                 picture: {
                     data: req.file.filename,
                     contentType: 'image/png/jpeg'
                 }
+                */
             })
 
             newUser.save()
