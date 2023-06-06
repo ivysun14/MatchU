@@ -122,7 +122,7 @@ const Recommendation = () => {
                 </div>
             </form>
             <div>
-                <button onClick={() => navigate('/')}>Go Back</button> {/* Add a button to go back to the main page */}
+                <button onClick={() => navigate('/home')}>Go Back</button> {/* Add a button to go back to the main page */}
             </div>
             <p></p>
             <p></p>
