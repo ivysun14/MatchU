@@ -133,9 +133,11 @@ const Recommendation = () => {
                     <li>
                         <div class="userContainer">
                             <div class="innerUserContainer">
+
                                 <div class="userImage">
                                     <h1>User's Image Should Be Here</h1>
                                 </div>
+                                
                                 <div class="userInfo">
                                     <div style={{ display: 'flex' }}>
                                         <strong style={{ marginRight: '3pt' }}>Name:</strong>
