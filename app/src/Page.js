@@ -15,6 +15,13 @@ const Page = () => {
     const [comment, setComment] = useState('');
     const [comments, setComments] = useState([]);
 
+    const name = userData.id;
+    const major = userData.major;
+    const gender = userData.gender;
+    const pregender = userData.pregender;
+    const campus = userData.campus;
+    const aboutYou = userData.aboutyou;
+
     useEffect(() => {
         if (userData) {
             fetch('http://localhost:8080/registration/' + name)
@@ -37,12 +44,7 @@ const Page = () => {
         return <div>Loading...</div>; // or handle the case when userData is not found
     }
 
-    const name = userData.id;
-    const major = userData.major;
-    const gender = userData.gender;
-    const pregender = userData.pregender;
-    const campus = userData.campus;
-    const aboutYou = userData.aboutyou;
+    
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -60,7 +62,7 @@ const Page = () => {
             }}>
 
             <div className="header">
-                <Link to={'/'}>Home</Link>
+                <Link to={'/home'}>Home</Link>
                 <Link style={{ float: 'right' }} to={'/login'}>Logout</Link>
                 <br />
             </div>
