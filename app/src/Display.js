@@ -2,7 +2,11 @@ import { useState } from "react";
 import { useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
+import React from 'react';
+
 import './Display.css';
+
+var Buffer = require('buffer/').Buffer;
 
 const Display = () => {
 
@@ -17,14 +21,13 @@ const Display = () => {
   const [campus, campuschange] = useState("");
   const [major, majorchange] = useState("");
   const [pregender, pregenderchange] = useState("");
+  const [imageBuffer, setImageBuffer] = useState(null); // initialize field for image
 
   useEffect(() => { live_Search(); }, []);
 
   const live_Search = () => {
-
     // Functions below are for searching
     let cards = document.querySelectorAll('.userContainer')
-
     function liveSearch() {
       let search_query = document.getElementById("searchbox").value;
       for (var i = 0; i < cards.length; i++) {
@@ -49,7 +52,7 @@ const Display = () => {
     console.log('Executing myFunction');
   };
 
-  const allUsers = userDataBase.filter(user =>
+  const allUsers = userDataBase.filter(user => 
     (((parseInt(user.age) >= parseInt(userDB[0].age) - parseInt(ageRange)) &&
       (parseInt(user.age) <= parseInt(userDB[0].age) + parseInt(ageRange))) ||
       ageRange === "")
@@ -63,6 +66,7 @@ const Display = () => {
     ((user.gender === pregender) ||
       pregender === "")
   );
+
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -79,6 +83,28 @@ const Display = () => {
 
   let filteredUsers = allUsers.filter(user => user.id !== userName);
 
+  useEffect(() => {
+    filteredUsers.forEach((user) => {
+      fetch(`http://localhost:8080/registration/${user.id}`)
+        .then((res) => res.json())
+        .then((resp) => {
+          setImageBuffer((prevImageBuffer) => {
+            const updatedImageBuffer = {
+              ...prevImageBuffer,
+              [user.id]: `data:${resp.picture.contentType};base64, ${Buffer.from(resp.picture.data.data).toString('base64')}`,
+            };
+            return updatedImageBuffer;
+          });
+        })
+        .catch((error) => {
+          console.error('Error fetching image:', error);
+        });
+    });
+    console.log('filteredUsers length:', filteredUsers.length);
+    console.log('AllUsers length 1:', allUsers.length);
+  }, [filteredUsers]);
+
+
   return (
     <div>
       <form className="container">
@@ -93,7 +119,6 @@ const Display = () => {
       <p></p>
 
       <div class="container">
-
 
         <div class="left-container">
           <div className="card">
@@ -253,10 +278,9 @@ const Display = () => {
                       <li key={user.id}>
                         <div class="userContainer">
                           <div class="innerUserContainer">
-                            <div class="userImage">
-                              <h>User's Image Should Be Here</h>
+                            <div className='image-container'>
+                              <img src={imageBuffer} alt="" />
                             </div>
-<<<<<<< HEAD
                             <div class="userInfo">
                               <div style={{ display: 'flex' }}>
                                 <Link
@@ -288,18 +312,13 @@ const Display = () => {
                                 <strong style={{ marginRight: '3pt' }}>Preferred Gender:</strong>
                                 <p>{filteredUsers[index]["pregender"]}</p>
                               </div>
-=======
-                            <div class="aboutMeContainer">
-                              <strong style={{ marginRight: '3pt' }}>About Me:</strong>
-                              <p>{filteredUsers[index]["aboutyou"]}</p>
->>>>>>> 2d83ff0dfd2c0585bbb872ff34a08648600846f7
                             </div>
                           </div>
                           <div class="aboutMeContainer">
                             <strong style={{ marginRight: '3pt' }}>About Me:</strong>
                             <p>{filteredUsers[index]["aboutyou"]}</p>
                           </div>
-                          </div>
+                        </div>
                       </li>
                     ))}
                   </ul>

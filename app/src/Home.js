@@ -122,8 +122,6 @@ const Home = () => {
             </div>
       </div>
             
-
-
              {/* Console buttons */}
             {data.map((item, index) => (
                  <button key={index} onClick={() => handleConsoleClick(item)}>
@@ -131,10 +129,7 @@ const Home = () => {
                 </button>
             ))}
 
-            {/* Rest of your component code */}
-
             <div>
-              {/* Other components and content */}
                 <Display data={jsonData} />
             </div>
         </div>       
