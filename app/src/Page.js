@@ -18,18 +18,18 @@ const Page = () => {
     useEffect(() => {
         if (userData) {
             fetch('http://localhost:8080/registration/' + name)
-            .then((res) => res.json())
-            .then((resp) => {
-                console.log(resp);
-                setImageBuffer(
-                `data:${resp.picture.contentType};base64, ${Buffer.from(
-                    resp.picture.data.data
-                ).toString('base64')}`
-                );
-            });
+                .then((res) => res.json())
+                .then((resp) => {
+                    console.log(resp);
+                    setImageBuffer(
+                        `data:${resp.picture.contentType};base64, ${Buffer.from(
+                            resp.picture.data.data
+                        ).toString('base64')}`
+                    );
+                });
         }
     }, [name, userData]); // Include 'name' and 'userData' as a dependencies
-    
+
     // Check if userData exists before accessing its properties
     if (!userData) {
         console.log("Here is userid:")
@@ -51,7 +51,7 @@ const Page = () => {
     };
 
     return (
-        
+
         <div
             style={{
                 backgroundColor: 'lightblue',
@@ -61,7 +61,7 @@ const Page = () => {
 
             <div className="header">
                 <Link to={'/'}>Home</Link>
-                <Link style={{ float: 'right' }} to={'/'}>Logout</Link>
+                <Link style={{ float: 'right' }} to={'/login'}>Logout</Link>
                 <br />
             </div>
 
@@ -78,9 +78,9 @@ const Page = () => {
                 <p></p>
             </div>
 
-                    <div className='image-container'>
-                        <img src={imageBuffer}></img>
-                    </div>
+            <div className='image-container'>
+                <img src={imageBuffer}></img>
+            </div>
 
 
             <div>
@@ -110,7 +110,6 @@ const Page = () => {
                     <button type="submit">Submit</button>
                 </form>
             </div>
-
         </div>
     );
 };
