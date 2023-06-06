@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import './Display.css';
 
 
@@ -7,6 +8,7 @@ const Recommendation = () => {
 
   const userName = sessionStorage.getItem('username');
   const userDataBase = JSON.parse(sessionStorage.getItem('userDataBase'));
+  const imageBufferDB = JSON.parse(sessionStorage.getItem('imageBuffer'));
 
   console.log(userName)
   console.log(userDataBase)
@@ -109,7 +111,7 @@ const Recommendation = () => {
             minHeight: '100vh',
         }}>
         
-        <div class="container">
+        <div className="container">
             <img src="https://www.avoxi.com/wp-content/uploads/2022/03/Swipe-Right-5-Questions-for-CPaaS-Providers-Blog.png" alt="Image description" width="800" class="image-1" />
          </div>
             <form className="container">
@@ -131,17 +133,20 @@ const Recommendation = () => {
             <ul>
                 {recommendedUsers.map((user, index) => (
                     <li>
-                        <div class="userContainer">
-                            <div class="innerUserContainer">
-
-                                <div class="userImage">
-                                    <h1>User's Image Should Be Here</h1>
-                                </div>
-                                
-                                <div class="userInfo">
+                        <div  className="userContainer">
+                            <div className='display-image-container'>
+                                <img src={imageBufferDB[user.id]} alt="" />
+                            </div>
+                            <div className="innerUserContainer">
+                                <div className="userInfo">
                                     <div style={{ display: 'flex' }}>
-                                        <strong style={{ marginRight: '3pt' }}>Name:</strong>
-                                        <p>{recommendedUsers[index]["id"]}</p>
+                                        <Link
+                                        className="userLink"
+                                        to={`/user/${recommendedUsers[index]["id"]}`}
+                                        onClick={() => navigate(`/user/${recommendedUsers[index]["id"]}`)}
+                                        >
+                                        {recommendedUsers[index]["id"]}
+                                        </Link>
                                     </div>
                                     <div style={{ display: 'flex' }}>
                                         <strong style={{ marginRight: '3pt' }}>Age:</strong>
@@ -165,13 +170,9 @@ const Recommendation = () => {
                                     </div>
                                 </div>
                             </div>
-                            <div class="aboutMeContainer">
+                            <div className="aboutMeContainer">
                                 <strong style={{ marginRight: '3pt' }}>About Me:</strong>
                                 <p>{recommendedUsers[index]["aboutyou"]}</p>
-                            </div>
-                            <div class="profileUrl">
-                                <strong>Profile Link:</strong>
-                                <p>Link/Url to this user's profile (need implement)</p>
                             </div>
                         </div>
                     </li>

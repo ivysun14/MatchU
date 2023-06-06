@@ -1,10 +1,8 @@
-import logo from './logo.svg';
 import './App.css';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Home from './Home';
 import Login from './Login';
 import Register from './Register';
-import Display from './Display';
 import Recommendation from './recommendation';
 import Profile from './Profile';
 import Page from './Page';

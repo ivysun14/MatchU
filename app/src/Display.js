@@ -6,8 +6,6 @@ import React from 'react';
 
 import './Display.css';
 
-var Buffer = require('buffer/').Buffer;
-
 const Display = () => {
 
   const userName = sessionStorage.getItem('username');
@@ -15,8 +13,6 @@ const Display = () => {
   const imageBufferDB = JSON.parse(sessionStorage.getItem('imageBuffer'));
   const element = userDataBase.find(item => item.id === userName);
   const userDB = [element];
-
-  console.log(imageBufferDB);
 
   const navigate = useNavigate();
 
@@ -51,7 +47,6 @@ const Display = () => {
       clearTimeout(typingTimer);
       typingTimer = setTimeout(liveSearch, typeInterval);
     });
-    console.log('Executing myFunction');
   };
 
   const allUsers = userDataBase.filter(user => 
@@ -69,15 +64,8 @@ const Display = () => {
       pregender === "")
   );
 
-  console.log('AllUsers length 1:', allUsers.length);
-
-
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log('Age Range:', ageRange);
-    console.log('Campus:', campus);
-    console.log('Major:', major);
-    console.log('Preferred Gender', pregender);
     // Reset the form after submission
     ageRangechange('');
     campuschange('');
@@ -100,13 +88,13 @@ const Display = () => {
       </form>
       <p></p>
 
-      <div class="container">
+      <div className="container">
 
-        <div class="left-container">
+        <div className="left-container">
           <div className="card">
 
-            <div className="card-header">
-              <p1 style={{ fontSize: '25px', fontWeight: 'bold' }}>Filters</p1>
+            <div className="card-header" style={{ fontSize: '25px', fontWeight: 'bold' }}>
+              Filters
             </div>
 
             <div className="card-body" onSubmit={handleSubmit}>
@@ -224,7 +212,7 @@ const Display = () => {
           {/* Add the Recommendation button */}
           <div className="card mt-4">
             <div className="card-body">
-              <h8>Click here to check a recommendation for you!</h8><br />
+              <p>Click here to check a recommendation for you!</p>
               <button className="btn btn-primary" onClick={() => navigate('/recommendation')}>
                 Recommendation
               </button>
@@ -233,18 +221,18 @@ const Display = () => {
           </div>
         </div >
 
-        <div class="right-container">
+        <div className="right-container">
           <div className="card">
 
-            <div className="card-header">
-              <p1 style={{ fontSize: '25px', fontWeight: 'bold' }}>Results</p1>
+            <div className="card-header" style={{ fontSize: '25px', fontWeight: 'bold' }}>
+              Results
             </div>
 
-            <div class="columns mx-1">
-              <div class="column is-half is-offset-one-quarter">
+            <div className="columns mx-1">
+              <div className="column is-half is-offset-one-quarter">
 
-                <section class="hero is-primary mb-4">
-                  <div class="hero-body">
+                <section className="hero is-primary mb-4">
+                  <div className="hero-body">
 
                   </div>
                 </section>
@@ -253,17 +241,17 @@ const Display = () => {
                 <section>
                   <div>
                     <label for="searchbox" style={{ fontWeight: 'bold', marginRight: '4pt' }}>Search</label>
-                    <input class='input mb-3' type="search" id="searchbox" placeholder="Enter keywords..."></input>
+                    <input className='input mb-3' type="search" id="searchbox" placeholder="Enter keywords..."></input>
                   </div>
                   <ul>
                     {filteredUsers.map((user, index) => (
                       <li key={user.id}>
-                        <div class="userContainer">
-                          <div class="innerUserContainer">
-                            <div className='image-container'>
-                              <img src={imageBufferDB[user.id]} alt="" />
-                            </div>
-                            <div class="userInfo">
+                        <div className="userContainer">
+                          <div className='display-image-container'>
+                            <img src={imageBufferDB[user.id]} alt="" />
+                          </div>
+                          <div className="innerUserContainer">
+                            <div className="userInfo">
                               <div style={{ display: 'flex' }}>
                                 <Link
                                   className="userLink"
@@ -296,7 +284,7 @@ const Display = () => {
                               </div>
                             </div>
                           </div>
-                          <div class="aboutMeContainer">
+                          <div className="aboutMeContainer">
                             <strong style={{ marginRight: '3pt' }}>About Me:</strong>
                             <p>{filteredUsers[index]["aboutyou"]}</p>
                           </div>

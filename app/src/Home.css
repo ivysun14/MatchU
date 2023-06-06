@@ -5,16 +5,6 @@
     /* Add any other desired styles */
   }
 
-  /*.container {
-    float: left;
-    margin-right: 20px; //Add some spacing between the image and other content 
-  }*/
-
-  /*.right-container {
-    flex: 1;
-    padding: 10px;
-}*/
-
 .container {
   display: flex;
   justify-content: center;
