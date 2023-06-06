@@ -35,7 +35,7 @@ const Home = () => {
     useEffect(()=>{
         let username = sessionStorage.getItem('username'); // check if the person had logged in, cannot access the home page without login
         if (username === '' || username === null){
-            usenavigate('/login');
+            usenavigate('/');
         }
 
         fetch('db.json') // Assuming db.json is in the same directory as Home.js
