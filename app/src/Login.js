@@ -5,6 +5,8 @@ import { useNavigate } from 'react-router-dom';
 import { useEffect } from "react";
 import loginImage from "./photo.jpg"
 
+var Buffer = require('buffer/').Buffer;
+
 //import './Login.css';
 
 const Login = () => {
@@ -14,6 +16,9 @@ const Login = () => {
     const usenavigate = useNavigate();
 
     const [userDataBase, setUserDataBase] = useState([])
+
+    const [imageBuffer, setImageBuffer] = useState(null); // initialize field for image
+
 
     const fetchUserData = () => {
         fetch("http://localhost:8080/registration/")
@@ -28,6 +33,29 @@ const Login = () => {
     useEffect(() => {
         fetchUserData();
     }, [])
+
+    useEffect(() => {
+        userDataBase.forEach((user) => {
+          fetch(`http://localhost:8080/registration/${user.id}`)
+            .then((res) => res.json())
+            .then((resp) => {
+              setImageBuffer((prevImageBuffer) => {
+                const updatedImageBuffer = {
+                  ...prevImageBuffer,
+                  [user.id]: `data:${resp.picture.contentType};base64, ${Buffer.from(resp.picture.data.data).toString('base64')}`,
+                };
+                return updatedImageBuffer;
+              });
+            })
+            .catch((error) => {
+              console.error('Error fetching image:', error);
+            });
+        });
+      }, [userDataBase]);
+
+    console.log(userDataBase);
+    console.log(imageBuffer);
+
 
     useEffect(() => {
         sessionStorage.clear(); // so the person have to log back in when logged out 
@@ -49,6 +77,7 @@ const Login = () => {
                         toast.success('Success');
                         sessionStorage.setItem('username', username);
                         sessionStorage.setItem('userDataBase', JSON.stringify(userDataBase));
+                        sessionStorage.setItem('imageBuffer', JSON.stringify(imageBuffer));
                         usenavigate('/home');
                     } else {
                         toast.error('Please Enter Valid Credentials');

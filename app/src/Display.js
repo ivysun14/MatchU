@@ -12,8 +12,11 @@ const Display = () => {
 
   const userName = sessionStorage.getItem('username');
   const userDataBase = JSON.parse(sessionStorage.getItem('userDataBase'));
+  const imageBufferDB = JSON.parse(sessionStorage.getItem('imageBuffer'));
   const element = userDataBase.find(item => item.id === userName);
   const userDB = [element];
+
+  console.log(imageBufferDB);
 
   const navigate = useNavigate();
 
@@ -21,7 +24,6 @@ const Display = () => {
   const [campus, campuschange] = useState("");
   const [major, majorchange] = useState("");
   const [pregender, pregenderchange] = useState("");
-  const [imageBuffer, setImageBuffer] = useState(null); // initialize field for image
 
   useEffect(() => { live_Search(); }, []);
 
@@ -84,27 +86,6 @@ const Display = () => {
   };
 
   let filteredUsers = allUsers.filter(user => user.id !== userName);
-
-  useEffect(() => {
-    filteredUsers.forEach((user) => {
-      fetch(`http://localhost:8080/registration/${user.id}`)
-        .then((res) => res.json())
-        .then((resp) => {
-          setImageBuffer((prevImageBuffer) => {
-            const updatedImageBuffer = {
-              ...prevImageBuffer,
-              [user.id]: `data:${resp.picture.contentType};base64, ${Buffer.from(resp.picture.data.data).toString('base64')}`,
-            };
-            return updatedImageBuffer;
-          });
-        })
-        .catch((error) => {
-          console.error('Error fetching image:', error);
-        });
-    });
-    console.log('filteredUsers length:', filteredUsers.length);
-  }, [filteredUsers]);
-
 
   return (
     <div>
@@ -280,7 +261,7 @@ const Display = () => {
                         <div class="userContainer">
                           <div class="innerUserContainer">
                             <div className='image-container'>
-                              <img src={imageBuffer[user.id]} alt="" />
+                              <img src={imageBufferDB[user.id]} alt="" />
                             </div>
                             <div class="userInfo">
                               <div style={{ display: 'flex' }}>
