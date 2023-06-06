@@ -9,7 +9,6 @@ import './Home.css';
 
 
 const Home = () => {
-    
     const usenavigate = useNavigate();
     const [jsonData, setJsonData] = useState([]);
     const [data, setData] = useState([]);
@@ -22,9 +21,6 @@ const Home = () => {
     const [major, majorchange] = useState("");
     const usersData = dbData.users;
 
-    
-
-
   const handleFilter = (option) => {
     setFilter(option);
     const filteredResult = jsonData.filter((item) => item.property === option);
@@ -35,8 +31,6 @@ const Home = () => {
   const handleConsoleClick = (item) => {
     console.log(item); // Log the selected item to the console
   };
-
-    
 
     useEffect(()=>{
         let username = sessionStorage.getItem('username'); // check if the person had logged in, cannot access the home page without login

@@ -1,10 +1,14 @@
 import { useParams, Link } from 'react-router-dom';
+import { useState } from 'react';
 import './Display.css';
 
 const Page = () => {
     const { userId } = useParams();
     const userDataBase = JSON.parse(sessionStorage.getItem('userDataBase'));
     const userData = userDataBase.find(item => item.id === userId);
+
+    const [comment, setComment] = useState('');
+    const [comments, setComments] = useState([]);
 
     // Check if userData exists before accessing its properties
     if (!userData) {
@@ -19,6 +23,12 @@ const Page = () => {
     const pregender = userData.pregender;
     const campus = userData.campus;
     const aboutYou = userData.aboutyou;
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        setComments((prevComments) => [...prevComments, comment]);
+        setComment('');
+    };
 
     return (
 
@@ -61,6 +71,25 @@ const Page = () => {
                 <p className="userInfo">Campus: {campus}</p>
                 <p className="userInfo">About Me: {aboutYou}</p>
             </div>
+
+            <div>
+                <h2>Comments</h2>
+                <ul>
+                    {comments.map((comment, index) => (
+                        <li key={index}>{comment}</li>
+                    ))}
+                </ul>
+                <form onSubmit={handleSubmit}>
+                    <textarea
+                        value={comment}
+                        onChange={(e) => setComment(e.target.value)}
+                        placeholder="Add a comment..."
+                    ></textarea>
+                    <br />
+                    <button type="submit">Submit</button>
+                </form>
+            </div>
+
         </div>
     );
 };
