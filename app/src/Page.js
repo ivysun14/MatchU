@@ -1,9 +1,10 @@
 import { useParams, Link } from 'react-router-dom';
 import { useState } from 'react';
-import './Display.css';
 import React, { useEffect } from 'react';
 import { toast } from 'react-toastify';
+import './Display.css';
 
+const userName = sessionStorage.getItem('username');
 var Buffer = require('buffer/').Buffer; // declare buffer
 
 const Page = () => {
@@ -38,37 +39,43 @@ const Page = () => {
     }, [name, userData]); // Include 'name' and 'userData' as a dependencies
 
     useEffect(() => {
-        fetch('http://localhost:8080/api/comments/' + userId)
-            .then(response => response.json())
-            .then(data => setComments(data));
+        fetch(`http://localhost:8080/comments/${userId}`)
+            .then(res => res.json())
+            .then(data => {
+                console.log(data); // log the data
+                if (Array.isArray(data)) {
+                    setComments(data);
+                } else {
+                    console.error('API did not return an array');
+                }
+            });
     }, [userId]);
 
-    const postComment = async (comment) => {
-        try {
-            const response = await fetch('http://localhost:8080/api/newComment', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ userId, comment })
-            });
-            if (!response.ok) throw new Error(response.statusText);
-            const data = await response.json();
-            setComments(prevComments => [...prevComments, data]);
+    const updateComment = (comment) => {
+        const commentWithUserId = `${userName }: ${comment}`;
+      
+        fetch(`http://localhost:8080/comments/${userId}`, {
+          method: 'PATCH',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ comments: commentWithUserId })
+        })
+          .then(res => res.json())
+          .then(data => {
+            setComments(prevComments => [...prevComments, commentWithUserId]);
             setNewComment('');
             toast.success('Comment added successfully.');
-            window.location.reload(true);
-        } catch (error) {
-            toast.error('Error: ' + error.message);
-        }
+          })
+          .catch(err => {
+            toast.error('Failed to update comment: ' + err.message);
+          });
     }
 
-    // Check if userData exists before accessing its properties
-    if (!userData) {
-        console.log("Here is userid:")
-        console.log(userId)
-        return <div>Loading...</div>; // or handle the case when userData is not found
-    }
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        updateComment(newComment);
+    };
 
     return (
 
@@ -98,30 +105,33 @@ const Page = () => {
                 <p></p>
             </div>
 
-            <h1>User Profile</h1>
-
-            <div className='image-container'>
-
-                <img src={imageBuffer}></img>
-            </div>
-
-
             <div>
                 <h1>User Profile</h1>
-                <p className="userInfo">Name: {name}</p>
-                <p className="userInfo">Major: {major}</p>
-                <p className="userInfo">Gender: {gender}</p>
-                <p className="userInfo">Preferred Gender: {pregender}</p>
-                <p className="userInfo">Campus: {campus}</p>
-                <p className="userInfo">About Me: {aboutYou}</p>
             </div>
+
+            <div className='image-container' style={{ marginLeft: '-100px' }}>
+                <img src={imageBuffer} />
+            </div>
+
+            <div>
+                <p style={{ marginLeft: '8cm', fontSize: '12pt' }}>Name: {name}</p>
+                <p style={{ marginLeft: '8cm', fontSize: '12pt' }}>Major: {major}</p>
+                <p style={{ marginLeft: '8cm', fontSize: '12pt' }}>Gender: {gender}</p>
+                <p style={{ marginLeft: '8cm', fontSize: '12pt' }}>Preferred Gender: {pregender}</p>
+                <p style={{ marginLeft: '8cm', fontSize: '12pt' }}>Campus: {campus}</p>
+                <p style={{ marginLeft: '8cm', fontSize: '12pt' }}>About Me: {aboutYou}</p>
+                <br/>
+            </div>
+
 
             <div>
                 <h2>Comments</h2>
-                {comments.map((comment, index) => (
-                    <div key={index}>{comment.comment}</div>
-                ))}
-                <form onSubmit={(e) => { e.preventDefault(); postComment(newComment); }}>
+                <ul>
+                    {comments.map((comment, index) => (
+                        <li key={index}>{comment}</li>
+                    ))}
+                </ul>
+                <form onSubmit={handleSubmit}>
                     <textarea
                         value={newComment}
                         onChange={(e) => setNewComment(e.target.value)}
@@ -130,7 +140,6 @@ const Page = () => {
                     <br />
                     <button type="submit">Submit</button>
                 </form>
-
             </div>
         </div>
     );
