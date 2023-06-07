@@ -1,5 +1,4 @@
-//const User = require('../models/userModel');
-const { User, Image } = require('../models/userModel');
+const { User, Image, Comment } = require('../models/userModel');
 const multer = require('multer');
 const fs = require('fs');
 const path = require('path');
@@ -55,6 +54,9 @@ exports.insertSingleUser = async (req, res) => {
                 contentType: 'image/png/jpeg'
             });
 
+            const newComment = new Comment();
+            //console.log(newComment);
+
             const newUser = new User({
                 id: req.body.id,
                 password: req.body.password,
@@ -65,16 +67,11 @@ exports.insertSingleUser = async (req, res) => {
                 aboutyou: req.body.aboutyou,
                 pregender: req.body.pregender,
                 picture: newImage,
-                /*
-                picture: {
-                    data: req.file.filename,
-                    contentType: 'image/png/jpeg'
-                }
-                */
+                comments: newComment
             })
 
             newUser.save()
-                .then(() => res.send('User profile and image successfully uploaded.'))
+                .then(() => res.send('User profile and image successfully uploaded. Empty comment field initialized.'))
                 .catch((err) => console.log(err));
         }
     })
@@ -92,7 +89,6 @@ exports.updateSingleUser = async (req, res) => {
     let major = req.body.major;
     let aboutyou = req.body.aboutyou;
     let pregender = req.body.pregender;
-    let comment = req.body.comment;
 
     try {
         const updateUser = await User.updateOne(

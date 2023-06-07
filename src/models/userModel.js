@@ -6,8 +6,13 @@ const imageSchema = new mongoose.Schema({
   contentType: String
 });
 
+// Define the comment schema
+const commentSchema = new mongoose.Schema({
+  comment: [String],
+  "default": []
+});
 
-// Define the user schema and include the embedded image schema
+// Define the user schema and include the embedded image, comment schema
 const userSchema = new mongoose.Schema(
   {
     id: {
@@ -62,7 +67,10 @@ const userSchema = new mongoose.Schema(
       required: [true, 'A user must provide a picture']
     },
 
-    comments: [],
+    comments: {
+      type: commentSchema,
+      required: false
+    }
   });
 
 // create a model, give it a name, and provide the schema to use
@@ -71,9 +79,11 @@ const userSchema = new mongoose.Schema(
 // Create models based on the schemas
 const User = mongoose.model('Users', userSchema);
 const Image = mongoose.model('Images', imageSchema);
+const Comment = mongoose.model('Comments', commentSchema);
 
 // Export the models
 module.exports = {
   User,
   Image,
+  Comment
 };
