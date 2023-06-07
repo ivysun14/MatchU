@@ -3,8 +3,6 @@ import { useState } from 'react';
 import React, { useEffect } from 'react';
 import { toast } from 'react-toastify';
 import './Display.css';
-
-const userName = sessionStorage.getItem('username');
 var Buffer = require('buffer/').Buffer; // declare buffer
 
 const Page = () => {
@@ -14,6 +12,7 @@ const Page = () => {
     const [imageBuffer, setImageBuffer] = useState(null); // initialize field for image
     const [comments, setComments] = useState([]);
     const [newComment, setNewComment] = useState('');
+    const userName = sessionStorage.getItem('username');
 
     const name = userData.id;
     const age = userData.age;
