@@ -62,7 +62,8 @@ const Recommendation = () => {
 
     const filteredUsers = userDataBase.filter(user =>
         (user.pregender === userDB.gender &&
-        user.gender === userDB.pregender)
+        user.gender === userDB.pregender && 
+        user.id !== userName)
       );
 
       console.log(filteredUsers);
@@ -128,7 +129,7 @@ const Recommendation = () => {
             </div>
             <p></p>
             <p></p>
-            <h1 style={{ color: 'white' }}>Your top ten match</h1>
+            <h1 style={{ color: 'white' }}>Your top match</h1>
 
             <ul>
                 {recommendedUsers.map((user, index) => (

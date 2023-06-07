@@ -16,6 +16,7 @@ const Page = () => {
     const [newComment, setNewComment] = useState('');
 
     const name = userData.id;
+    const age = userData.age;
     const major = userData.major;
     const gender = userData.gender;
     const pregender = userData.pregender;
@@ -115,6 +116,7 @@ const Page = () => {
 
             <div>
                 <p style={{ marginLeft: '8cm', fontSize: '12pt' }}>Name: {name}</p>
+                <p style={{ marginLeft: '8cm', fontSize: '12pt' }}>Age: {age}</p>
                 <p style={{ marginLeft: '8cm', fontSize: '12pt' }}>Major: {major}</p>
                 <p style={{ marginLeft: '8cm', fontSize: '12pt' }}>Gender: {gender}</p>
                 <p style={{ marginLeft: '8cm', fontSize: '12pt' }}>Preferred Gender: {pregender}</p>
