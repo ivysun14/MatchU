@@ -6,6 +6,7 @@ const imageSchema = new mongoose.Schema({
   contentType: String
 });
 
+
 // Define the user schema and include the embedded image schema
 const userSchema = new mongoose.Schema(
   {
@@ -59,7 +60,9 @@ const userSchema = new mongoose.Schema(
     picture: {
       type: imageSchema, // Embed the image schema as a property
       required: [true, 'A user must provide a picture']
-    }
+    },
+
+    comments: [],
   });
 
 // create a model, give it a name, and provide the schema to use
@@ -72,5 +75,5 @@ const Image = mongoose.model('Images', imageSchema);
 // Export the models
 module.exports = {
   User,
-  Image
+  Image,
 };

@@ -65,7 +65,7 @@ exports.insertSingleUser = async (req, res) => {
                 major: req.body.major,
                 aboutyou: req.body.aboutyou,
                 pregender: req.body.pregender,
-                picture: newImage
+                picture: newImage,
                 /*
                 picture: {
                     data: req.file.filename,
@@ -93,6 +93,7 @@ exports.updateSingleUser = async (req, res) => {
     let major = req.body.major;
     let aboutyou = req.body.aboutyou;
     let pregender = req.body.pregender;
+    let comment = req.body.comment;
 
     try {
         const updateUser = await User.updateOne(

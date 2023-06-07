@@ -11,11 +11,6 @@ const Page = () => {
     const userDataBase = JSON.parse(sessionStorage.getItem('userDataBase'));
     const userData = userDataBase.find(item => item.id === userId);
     const [imageBuffer, setImageBuffer] = useState(null); // initialize field for image
-<<<<<<< HEAD
-=======
-
-    const [comment, setComment] = useState('');
->>>>>>> fdb8a0461f52f257f5618200acb7816dc3ebd066
     const [comments, setComments] = useState([]);
     const [newComment, setNewComment] = useState('');
 
@@ -75,15 +70,6 @@ const Page = () => {
         return <div>Loading...</div>; // or handle the case when userData is not found
     }
 
-<<<<<<< HEAD
-=======
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        setComments((prevComments) => [...prevComments, comment]);
-        setComment('');
-    };
-
->>>>>>> fdb8a0461f52f257f5618200acb7816dc3ebd066
     return (
 
         <div
@@ -114,51 +100,37 @@ const Page = () => {
 
             <h1>User Profile</h1>
 
-            <div className='comment-image-container'>
+            <div className='image-container'>
+
                 <img src={imageBuffer}></img>
             </div>
 
-            <div className="commentUserInfo">
-                <div style={{ display: 'flex' }}>
-                    <strong style={{ marginRight: '3pt' }}>Name:</strong>
-                    <p>{name}</p>
-                </div>
-                <div style={{ display: 'flex' }}>
-                    <strong style={{ marginRight: '3pt' }}>Major:</strong>
-                    <p>{major}</p>
-                </div>
-                <div style={{ display: 'flex' }}>
-                    <strong style={{ marginRight: '3pt' }}>Gender:</strong>
-                    <p>{gender}</p>
-                </div>
-                <div style={{ display: 'flex' }}>
-                    <strong style={{ marginRight: '3pt' }}>Preferred Gender:</strong>
-                    <p>{pregender}</p>
-                </div>
-                <div style={{ display: 'flex' }}>
-                    <strong style={{ marginRight: '3pt' }}>Campus:</strong>
-                    <p>{campus}</p>
-                </div>
-                <div style={{ display: 'flex' }}>
-                    <strong style={{ marginRight: '3pt' }}>About Me:</strong>
-                    <p>{aboutYou}</p>
-                </div>
+
+            <div>
+                <h1>User Profile</h1>
+                <p className="userInfo">Name: {name}</p>
+                <p className="userInfo">Major: {major}</p>
+                <p className="userInfo">Gender: {gender}</p>
+                <p className="userInfo">Preferred Gender: {pregender}</p>
+                <p className="userInfo">Campus: {campus}</p>
+                <p className="userInfo">About Me: {aboutYou}</p>
             </div>
 
             <div>
-            <h2>Comments</h2>
-            {comments.map((comment, index) => (
-                <div key={index}>{comment.comment}</div>
-            ))}
-            <form onSubmit={(e) => { e.preventDefault(); postComment(newComment); }}>
-                <textarea
-                    value={newComment}
-                    onChange={(e) => setNewComment(e.target.value)}
-                    placeholder="Add a comment..."
-                ></textarea>
-                <br />
-                <button type="submit">Submit</button>
-            </form>
+                <h2>Comments</h2>
+                {comments.map((comment, index) => (
+                    <div key={index}>{comment.comment}</div>
+                ))}
+                <form onSubmit={(e) => { e.preventDefault(); postComment(newComment); }}>
+                    <textarea
+                        value={newComment}
+                        onChange={(e) => setNewComment(e.target.value)}
+                        placeholder="Add a comment..."
+                    ></textarea>
+                    <br />
+                    <button type="submit">Submit</button>
+                </form>
+
             </div>
         </div>
     );
