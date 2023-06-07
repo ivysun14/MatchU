@@ -43,10 +43,41 @@ ul {
     transform: translate(95px, 45px);
 }
 
+.display-image-container img {
+    background: white;
+    margin-left: -1cm;
+    width: 200px;
+    height: 200px;
+    border-radius: 100%;
+    padding: 5px;
+    transform: translate(95px, 45px);
+}
+
+.comment-image-container img {
+    background: white;
+    margin-left: 4cm;
+    width: 200px;
+    height: 200px;
+    border-radius: 100%;
+    padding: 5px;
+    transform: translate(95px, 45px);
+}
+
 .userInfo {
     font-size: 12pt;
     line-height: 1.15;
-    margin-left: 10px;
+    margin-left: 8cm;
+    margin-top: -4cm;
+    margin-right: 8px;
+    padding: 5px;
+    flex-direction: column;
+}
+
+.commentUserInfo {
+    font-size: 16pt;
+    line-height: 1.15;
+    margin-left: 14cm;
+    margin-top: -4cm;
     margin-right: 8px;
     padding: 5px;
     flex-direction: column;
@@ -71,7 +102,9 @@ ul {
 
 /* Using !important */
 .userLink {
-    color: black !important;
+    color: darkblue !important;
+    font-size: 15pt;
+    margin-bottom: 5px;
 }
 
 .userLink:hover {

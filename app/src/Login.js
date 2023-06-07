@@ -7,8 +7,6 @@ import loginImage from "./photo.jpg"
 
 var Buffer = require('buffer/').Buffer;
 
-//import './Login.css';
-
 const Login = () => {
     const [username, usernameupdate] = useState('');
     const [password, passwordupdate] = useState('');
@@ -52,9 +50,6 @@ const Login = () => {
             });
         });
       }, [userDataBase]);
-
-    console.log(userDataBase);
-    console.log(imageBuffer);
 
 
     useEffect(() => {
@@ -111,8 +106,8 @@ const Login = () => {
                 padding: '5px',
                 minHeight: '100vh',
             }}>
-            <div class="container">
-                <img class="image-1" src={loginImage} width = "500" alt="Login image"></img>
+            <div className="container">
+                <img className="image-1" src={loginImage} width = "500" alt="Login image"></img>
             </div>
 
 
