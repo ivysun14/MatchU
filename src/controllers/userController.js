@@ -50,7 +50,6 @@ exports.insertSingleUser = async (req, res) => {
             console.log(err)
         }
         else {
-            //console.log(req.file);
             const newImage = new Image({
                 data: fs.readFileSync(path.join('uploads/' + req.file.filename)),
                 contentType: 'image/png/jpeg'
