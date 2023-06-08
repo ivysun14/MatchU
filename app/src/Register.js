@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 
 
 const Register = () => {
@@ -15,6 +16,7 @@ const Register = () => {
     const [major, majorchange] = useState("");
     const [aboutyou, aboutyouchange] = useState("");
     const [pregender, pregenderchange] = useState("");
+    const [imageFile, imageFilechange] = useState(null);
 
     const navigate = useNavigate();
 
@@ -63,20 +65,29 @@ const Register = () => {
 
     const handlesubmit = (e) => {
         e.preventDefault();
-        let regobj = { id, password, age, campus, gender, major, aboutyou, pregender };
-        //console.log(regobj);
-        //if (!IsValid){console.log(IsValid);}
+
+        const formData = new FormData();
+        formData.append('id', id);
+        formData.append('password', password);
+        formData.append('age', age);
+        formData.append('campus', campus);
+        formData.append('gender', gender);
+        formData.append('major', major);
+        formData.append('aboutyou', aboutyou);
+        formData.append('pregender', pregender);
+        formData.append('picture', imageFile);
+
         if (IsValid()) {
-            fetch("http://localhost:8080/registration", {
-                method: "POST",
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(regobj) //converts a JavaScript object or value into a JSON string representation
-            }).then((res) => {
-                toast.success('Registered successfully.');
-                navigate('/');
-            }).catch((err) => {
-                toast.error('Failed :' + err.message);
-            });
+            axios
+                .post('http://localhost:8080/registration', formData)
+                .then((res) => {
+                    console.log(res.data);
+                    toast.success('Registered successfully.');
+                    navigate('/');
+                })
+                .catch((err) => {
+                    toast.error('Failed :' + err.message);
+                });
         }
     }
 
@@ -217,10 +228,8 @@ const Register = () => {
                                 </div>
                                 <div className="mb-3">
                                     <div className="form-group">
-                                        <form action="http://localhost:8080/registration" method="post" enctype="multipart/form-data">
-                                            <label className="form-label">Profile Picture<span className="errormsg">*</span></label>
-                                            <input type="file" id="image_input" className="form-control"></input>
-                                        </form>
+                                        <label className="form-label">Profile Picture<span className="errormsg">*</span></label>
+                                        <input type="file" id="image_input" className="form-control" onChange={e => imageFilechange(e.target.files[0])}></input>
                                     </div>
                                 </div>
                             </div>
