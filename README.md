@@ -20,6 +20,9 @@ npm run start:dev
 npm install
 npm start
 ```
-When you open the app in step 3, keep in mind that your server in step 2 must be up and running.
 
-Enjoy MatchU!
+### Things to Note:
+1. When you open the app in step 3, keep in mind that your server in step 2 must be up and running.<br>
+2. Be patient and wait for a few seconds when the web page has opened, then proceed with logging in or registering :)
+
+### Enjoy MatchU!
