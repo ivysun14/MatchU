@@ -153,8 +153,6 @@ const Profile = () => {
                             <option>    </option>
                             <option value="Agriculture, Agriculture Operations, and Related Sciences">
                                 Agriculture, Agriculture Operations, and Related Sciences</option>
-                            <option value="Architecture and Related Services">Aviation</option>
-                            <option value="Area, Ethnic, Cultural, Gender, and Group Studies">Aviation</option>
                             <option value="Aviation">Aviation</option>
                             <option value="Biological and Biomedical Sciences">Biological and Biomedical Sciences</option>
                             <option value="Business, Management, Marketing, and Related Support Services">

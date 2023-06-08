@@ -52,24 +52,24 @@ const Page = () => {
     }, [userId]);
 
     const updateComment = (comment) => {
-        const commentWithUserId = `${userName }: ${comment}`;
-      
+        const commentWithUserId = `${userName}: ${comment}`;
+
         fetch(`http://localhost:8080/comments/${userId}`, {
-          method: 'PATCH',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({ comments: commentWithUserId })
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ comments: commentWithUserId })
         })
-          .then(res => res.json())
-          .then(data => {
-            setComments(prevComments => [...prevComments, commentWithUserId]);
-            setNewComment('');
-            toast.success('Comment added successfully.');
-          })
-          .catch(err => {
-            toast.error('Failed to update comment: ' + err.message);
-          });
+            .then(res => res.json())
+            .then(data => {
+                setComments(prevComments => [...prevComments, commentWithUserId]);
+                setNewComment('');
+                toast.success('Comment added successfully.');
+            })
+            .catch(err => {
+                toast.error('Failed to update comment: ' + err.message);
+            });
     }
 
     const handleSubmit = (e) => {
@@ -88,7 +88,7 @@ const Page = () => {
 
             <div className="header">
                 <Link to={'/home'}>Home</Link>
-                <Link style={{ float: 'right' }} to={'/login'}>Logout</Link>
+                <Link style={{ float: 'right' }} to={'/'}>Logout</Link>
                 <br />
             </div>
 
@@ -121,7 +121,7 @@ const Page = () => {
                 <p style={{ marginLeft: '8cm', fontSize: '12pt' }}>Preferred Gender: {pregender}</p>
                 <p style={{ marginLeft: '8cm', fontSize: '12pt' }}>Campus: {campus}</p>
                 <p style={{ marginLeft: '8cm', fontSize: '12pt' }}>About Me: {aboutYou}</p>
-                <br/>
+                <br />
             </div>
 
 
